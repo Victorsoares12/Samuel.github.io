@@ -172,24 +172,34 @@ class InteractiveGallery {
         const changeText = weightChange > 0 ? `+${weightChange}kg` : `${weightChange}kg`;
 
         if (this.editingCard) {
-            this.editingCard.querySelector('img[alt="Antes"]').src = this.dom.previewAntes.src;
-            this.editingCard.querySelector('img[alt="Depois"]').src = this.dom.previewDepois.src;
-            this.editingCard.querySelector('.result-info h4').textContent = `${name} (${changeText})`;
+            const imgs = this.editingCard.querySelectorAll('.comparison-item img');
+            if (imgs.length === 2) {
+                imgs[0].src = this.dom.previewAntes.src;
+                imgs[1].src = this.dom.previewDepois.src;
+                this.editingCard.querySelector('.result-info h4').textContent = `${name} (${changeText})`;
+            }
         } else {
-            const cardAntes = this.createResultCard(this.dom.previewAntes.src, 'Antes', `${name} (Antes)`);
-            const cardDepois = this.createResultCard(this.dom.previewDepois.src, 'Depois', `${name} (${changeText})`);
-            this.dom.galleryTrack.prepend(cardDepois);
-            this.dom.galleryTrack.prepend(cardAntes);
+            const card = this.createResultCard(this.dom.previewAntes.src, this.dom.previewDepois.src, `${name} (${changeText})`);
+            this.dom.galleryTrack.prepend(card);
         }
 
         this.closeSubmissionModal();
     }
 
-    createResultCard(imgSrc, altText, infoText) {
+    createResultCard(imgSrcAntes, imgSrcDepois, infoText) {
         const card = document.createElement('div');
         card.className = 'result-card user-submitted';
         card.innerHTML = `
-            <img src="${imgSrc}" alt="${altText}">
+            <div class="comparison-container">
+                <div class="comparison-item">
+                    <span class="comparison-label">Antes</span>
+                    <img src="${imgSrcAntes}" alt="Antes">
+                </div>
+                <div class="comparison-item">
+                    <span class="comparison-label">Depois</span>
+                    <img src="${imgSrcDepois}" alt="Depois">
+                </div>
+            </div>
             <div class="result-info"><h4>${infoText}</h4></div>
             <div class="card-actions">
                 <button class="edit-btn" aria-label="Editar"><i class="fas fa-pen"></i></button>

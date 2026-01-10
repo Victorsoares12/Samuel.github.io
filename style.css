@@ -612,7 +612,7 @@ ul {
 @media print {
     /* Esconde tudo que não é a ficha de treino */
     body > .container > *:not(.weekly-plan-generator),
-    .weekly-plan-generator > *:not(.weekly-plan-result) {
+    .weekly-plan-generator > *:not(.workout-plan-container) {
         display: none !important;
     }
 
@@ -623,27 +623,71 @@ ul {
         color: black !important;
     }
 
-    .container, .weekly-plan-generator, .weekly-plan-result {
+    .container, .weekly-plan-generator, .workout-plan-container {
         margin: 0 !important;
         padding: 0 !important;
         border: none !important;
         box-shadow: none !important;
         background: none !important;
+        width: 100% !important;
     }
 
-    .weekly-plan-result {
-        display: block !important; /* Garante que os cards fiquem um abaixo do outro */
+    .workout-plan-container {
+        display: block !important;
     }
 
-    /* Adapta os cards para o papel */
-    .day-card {
-        color: black !important;
-        background-color: #f9f9f9 !important;
-        border: 1px solid #ccc !important;
-        box-shadow: none !important;
-        backdrop-filter: none !important;
-        -webkit-backdrop-filter: none !important;
+    .workout-tabs, .controls, .action-buttons-container {
+        display: none !important;
+    }
+
+    .workout-day-content {
+        display: block !important; /* Mostra todos os dias */
         page-break-inside: avoid; /* Tenta não quebrar o card entre páginas */
+        border: 1px solid #ccc;
+        margin-bottom: 20px;
+        padding: 10px;
+    }
+
+    .exercise-item {
+        background: white !important;
+        color: black !important;
+        border: 1px solid #ddd !important;
+        box-shadow: none !important;
+    }
+
+    .exercise-name, .exercise-details, h4 {
+        color: black !important;
+        text-shadow: none !important;
+    }
+}
+
+/* Estilos específicos para o PDF gerado via JS */
+.pdf-export-mode {
+    background: white !important;
+    color: black !important;
+    padding: 20px;
+}
+
+.pdf-export-mode .exercise-item {
+    background: #fff !important;
+    color: #000 !important;
+    border: 1px solid #ccc !important;
+    box-shadow: none !important;
+    margin-bottom: 10px;
+}
+
+.pdf-export-mode .exercise-name,
+.pdf-export-mode .exercise-details,
+.pdf-export-mode h4 {
+    color: #000 !important;
+    text-shadow: none !important;
+}
+
+.pdf-export-mode .swap-exercise-btn,
+.pdf-export-mode .exercise-done-checkbox,
+.pdf-export-mode .completion-label {
+    display: none !important;
+}
     }
 }
 
@@ -819,7 +863,7 @@ ul {
 }
 
 .result-card {
-    width: 250px;
+    width: 340px;
     position: relative; /* Adicionado para conter o .result-info */
     height: 350px;
     transition: transform 0.3s;
@@ -838,6 +882,38 @@ ul {
     height: 100%;
     object-fit: cover; /* Garante que a imagem cubra o card sem distorcer */
     display: block;
+}
+
+.comparison-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.comparison-item {
+    flex: 1;
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.comparison-item:last-child {
+    border-right: none;
+}
+
+.comparison-label {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    z-index: 2;
+    pointer-events: none;
 }
 
 .result-info {

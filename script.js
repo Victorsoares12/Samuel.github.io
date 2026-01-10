@@ -72,7 +72,7 @@ class WorkoutGenerator {
     addEventListeners() {
         this.dom.heightInput.addEventListener('input', () => this.calculateAndShowIMC());
         this.dom.weightInput.addEventListener('input', () => this.calculateAndShowIMC());
-        this.dom.pdfBtn.addEventListener('click', () => window.print());
+        this.dom.pdfBtn.addEventListener('click', () => this.handleDownloadPdf());
         this.dom.printBtn.addEventListener('click', () => window.print());
 
         this.dom.levelButtons.forEach(button => {
@@ -368,6 +368,52 @@ class WorkoutGenerator {
                 button.classList.remove('active'); // Remove o estado de carregamento
             }
         });
+    }
+
+    handleDownloadPdf() {
+        if (typeof html2pdf === 'undefined') {
+            alert('Biblioteca de PDF não carregada. Usando impressão padrão.');
+            window.print();
+            return;
+        }
+
+        const originalText = this.dom.pdfBtn.textContent;
+        this.dom.pdfBtn.textContent = 'Gerando PDF...';
+        this.dom.pdfBtn.disabled = true;
+
+        // Clona o conteúdo para preparar para o PDF (tema claro, todos os dias visíveis)
+        const contentToPrint = this.dom.workoutContentContainer.cloneNode(true);
+        contentToPrint.classList.add('pdf-export-mode');
+
+        // Mostra todos os dias no clone
+        const days = contentToPrint.querySelectorAll('.workout-day-content');
+        days.forEach(day => {
+            day.style.display = 'block';
+        });
+
+        // Container temporário fora da tela
+        const tempContainer = document.createElement('div');
+        tempContainer.style.position = 'absolute';
+        tempContainer.style.left = '-9999px';
+        tempContainer.style.top = '0';
+        tempContainer.style.width = '800px'; // Largura A4 aproximada
+        tempContainer.appendChild(contentToPrint);
+        document.body.appendChild(tempContainer);
+
+        const opt = {
+            margin: 10,
+            filename: 'Ficha_Treino_Samuel.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2, useCORS: true },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+
+        html2pdf().set(opt).from(contentToPrint).save()
+            .then(() => {
+                document.body.removeChild(tempContainer);
+                this.dom.pdfBtn.textContent = originalText;
+                this.dom.pdfBtn.disabled = false;
+            });
     }
 }
 

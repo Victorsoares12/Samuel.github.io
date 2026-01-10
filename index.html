@@ -103,22 +103,6 @@
                 <div class="gallery-viewport">
                     <div class="gallery-track">
                         <!-- Cards de Resultado (serão duplicados via JS para o loop) -->
-                        <div class="result-card">
-                            <img src="" alt="Cliente Antes">
-                            <div class="result-info"><h4>João S. (-10kg)</h4></div>
-                        </div>
-                        <div class="result-card">
-                            <img src="" alt="Cliente Depois">
-                            <div class="result-info"><h4>João S. (Depois)</h4></div>
-                        </div>
-                        <div class="result-card">
-                            <img src="" alt="Cliente Antes">
-                            <div class="result-info"><h4>Maria P. (+5kg)</h4></div>
-                        </div>
-                        <div class="result-card">
-                            <img src="" alt="Cliente Depois">
-                            <div class="result-info"><h4>Maria P. (Depois)</h4></div>
-                        </div>
                         <!-- Adicione mais cards aqui -->
                     </div>
                 </div>
@@ -219,6 +203,8 @@
     </div>
     <script src="gallery.js" defer></script>
     <script src="faq.js" defer></script>
+    <!-- Biblioteca para gerar PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="script.js" defer></script>
 
     <!-- Script do Widget do WhatsApp -->
@@ -297,47 +283,6 @@
                   position: fixed;
                   bottom: 20px;
                   left: 20px;
-                  z-index: 1000; /* Garante que fique acima de outros elementos */
-                  display: inline-flex;
-                  align-items: center;
-                  justify-content: center;
-                  width: 50px; /* Largura do botão */
-                  height: 50px; /* Altura do botão */
-                  background-color: #E1306C; /* Cor do Instagram */
-                  color: white; 
-                  text-decoration: none;
-                  border-radius: 50%; /* Deixa o botão redondo */
-                  transition: background-color 0.3s ease, transform 0.3s ease;
-                  border: none;
-                  cursor: pointer;
-                  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-                  animation: pulse-instagram 2s infinite;
-              }
-              .instagram-button-injected:hover {
-                  background-color: #C135A1; 
-                  transform: scale(1.1); /* Aumenta um pouco mais no hover */
-                  animation: none; /* Pausa a animação de pulso no hover */
-              }
-              .instagram-button-injected .fa-instagram {
-                  /* Ajusta o tamanho do ícone dentro do círculo */
-                  font-size: 24px;
-              }
-          `;
-
-          // 3. Adiciona o CSS e o HTML à página
-          style.appendChild(document.createTextNode(css));
-          document.head.appendChild(style);
-          document.body.insertAdjacentHTML('beforeend', instagramButtonHTML);
-      };
-    </script>
-
-    <!-- Modal para Ampliar Imagem da Galeria -->
-    <div id="image-modal" class="modal-overlay" style="display: none;">
-        <span class="close-modal-btn">&times;</span>
-        <img class="modal-image" id="modal-img-content" src="" alt="Imagem Ampliada">
-    </div>
-</body>
-</html>           left: 20px;
                   z-index: 1000; /* Garante que fique acima de outros elementos */
                   display: inline-flex;
                   align-items: center;
