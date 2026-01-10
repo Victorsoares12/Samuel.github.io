@@ -185,7 +185,7 @@
                     </div>
                     <div id="simulation-consultoria" class="simulation-details active">
                         <p>Para um acompanhamento completo, com plano de treino e nutrição 100% personalizados para seus objetivos, fale diretamente comigo!</p>
-                        <a href="https://w.app/treinador_samuel_maia"target="_blank" class="cta-button">Quero uma Consultoria</a>
+                        <a href="https://wa.link/o6kn2i" target="_blank" class="cta-button">Quero uma Consultoria</a>
                     </div>
                     <div id="simulation-ficha-inteligente" class="simulation-details">
                         <p>Use nossa ferramenta gratuita para gerar uma ficha de treino dinâmica e inteligente agora mesmo, com base no seu nível e limitações.</p>
@@ -224,14 +224,13 @@
     <!-- Script do Widget do WhatsApp -->
     <script type="text/javascript">
       window.onload = function() {
-          // --- Injeta o Widget do WhatsApp ---
-          (function(d, script) {
-              script = d.createElement('script');
-              script.type = 'text/javascript';
-              script.async = true;
-              script.src = 'https://w.app/widget-v1/xamLjf.js';
-              d.getElementsByTagName('head')[0].appendChild(script);
-          }(document));
+          // --- Injeta o Botão Flutuante do WhatsApp ---
+          var whatsappButtonHTML = `
+            <a href="https://wa.link/o6kn2i" target="_blank" class="whatsapp-button-injected" aria-label="WhatsApp">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+          `;
+          document.body.insertAdjacentHTML('beforeend', whatsappButtonHTML);
 
           // --- Injeta o Botão Flutuante do Instagram ---
           // 1. O código HTML do botão
@@ -247,6 +246,39 @@
           
           // O CSS completo, com o botão circular flutuando no canto inferior esquerdo
           var css = `
+              @keyframes pulse-whatsapp {
+                  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+                  70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(37, 211, 102, 0); }
+                  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+              }
+              .whatsapp-button-injected {
+                  position: fixed;
+                  bottom: 20px;
+                  right: 20px;
+                  z-index: 1000;
+                  display: inline-flex;
+                  align-items: center;
+                  justify-content: center;
+                  width: 50px;
+                  height: 50px;
+                  background-color: #25D366;
+                  color: white;
+                  text-decoration: none;
+                  border-radius: 50%;
+                  transition: background-color 0.3s ease, transform 0.3s ease;
+                  border: none;
+                  cursor: pointer;
+                  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+                  animation: pulse-whatsapp 2s infinite;
+              }
+              .whatsapp-button-injected:hover {
+                  background-color: #128C7E;
+                  transform: scale(1.1);
+                  animation: none;
+              }
+              .whatsapp-button-injected .fa-whatsapp {
+                  font-size: 28px;
+              }
               @keyframes pulse-instagram {
                   0% {
                       transform: scale(0.95);
@@ -265,6 +297,47 @@
                   position: fixed;
                   bottom: 20px;
                   left: 20px;
+                  z-index: 1000; /* Garante que fique acima de outros elementos */
+                  display: inline-flex;
+                  align-items: center;
+                  justify-content: center;
+                  width: 50px; /* Largura do botão */
+                  height: 50px; /* Altura do botão */
+                  background-color: #E1306C; /* Cor do Instagram */
+                  color: white; 
+                  text-decoration: none;
+                  border-radius: 50%; /* Deixa o botão redondo */
+                  transition: background-color 0.3s ease, transform 0.3s ease;
+                  border: none;
+                  cursor: pointer;
+                  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+                  animation: pulse-instagram 2s infinite;
+              }
+              .instagram-button-injected:hover {
+                  background-color: #C135A1; 
+                  transform: scale(1.1); /* Aumenta um pouco mais no hover */
+                  animation: none; /* Pausa a animação de pulso no hover */
+              }
+              .instagram-button-injected .fa-instagram {
+                  /* Ajusta o tamanho do ícone dentro do círculo */
+                  font-size: 24px;
+              }
+          `;
+
+          // 3. Adiciona o CSS e o HTML à página
+          style.appendChild(document.createTextNode(css));
+          document.head.appendChild(style);
+          document.body.insertAdjacentHTML('beforeend', instagramButtonHTML);
+      };
+    </script>
+
+    <!-- Modal para Ampliar Imagem da Galeria -->
+    <div id="image-modal" class="modal-overlay" style="display: none;">
+        <span class="close-modal-btn">&times;</span>
+        <img class="modal-image" id="modal-img-content" src="" alt="Imagem Ampliada">
+    </div>
+</body>
+</html>           left: 20px;
                   z-index: 1000; /* Garante que fique acima de outros elementos */
                   display: inline-flex;
                   align-items: center;
