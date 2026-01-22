@@ -26,12 +26,31 @@ body {
 }
 
 .header-logo {
-   width: 600px;wi
-   width: 650px;
+    width: 650px;
     max-width: 95%; /* Garante responsividade em telas menores */
     height: auto;
     margin-top: 10px;
-    filter: drop-shadow(0 6px 20px rgba(0, 0, 0, 0.6)); /* Adiciona destaque visual sobre o fundo */
+    /* Sombra 3D profunda e animação contínua */
+    filter: drop-shadow(0 15px 15px rgba(0, 0, 0, 0.6));
+    animation: pulseLogo 3s ease-in-out infinite;
+    transition: all 0.5s ease;
+}
+
+.header-logo:hover,
+.header-logo:active {
+    /* Gira 360 graus (efeito 3D) ao passar o mouse ou tocar */
+    animation: rotateLogo 3s ease-in-out infinite;
+    filter: drop-shadow(0 25px 30px rgba(0, 0, 0, 0.8));
+}
+
+@keyframes pulseLogo {
+    0%, 100% { transform: scale(1); filter: drop-shadow(0 15px 15px rgba(0, 0, 0, 0.6)); }
+    50% { transform: scale(1.05); filter: drop-shadow(0 20px 25px rgba(0, 0, 0, 0.5)); }
+}
+
+@keyframes rotateLogo {
+    0% { transform: perspective(1000px) rotateY(0deg) scale(1); }
+    100% { transform: perspective(1000px) rotateY(360deg) scale(1); }
 }
 
 .header-wrapper {
@@ -42,8 +61,9 @@ body {
     gap: 20px;
 }
 
-.header-ad {
+.footer-ad {
     min-width: 250px;
+    margin-bottom: 30px;
 }
 
 /* Agrupando seletores de títulos para reduzir repetição */
@@ -55,6 +75,7 @@ body {
 
 h1 {
     font-size: 2rem;
+    margin-top: -15px; /* Aproxima o título do logo */
 }
 
 h2, h3 {
