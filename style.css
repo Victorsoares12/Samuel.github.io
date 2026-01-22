@@ -34,6 +34,18 @@ body {
     filter: drop-shadow(0 6px 20px rgba(0, 0, 0, 0.6)); /* Adiciona destaque visual sobre o fundo */
 }
 
+.header-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap; /* Permite quebrar linha em celular */
+    gap: 20px;
+}
+
+.header-ad {
+    min-width: 250px;
+}
+
 /* Agrupando seletores de títulos para reduzir repetição */
 .title, h1, h2, h3 {
     color: var(--text-color);
