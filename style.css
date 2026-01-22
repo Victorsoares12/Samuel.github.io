@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=BBH+Sans+Bartle&family=Ribeye&family=Russo+One&family=Science+Gothic:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=BBH+Sans+Bartle&family=Russo+One&family=Science+Gothic:wght@100..900&display=swap');
 
 :root {
     --primary-color: #e63946;
@@ -9,47 +9,6 @@
     --shadow-light: 1px 1px 3px rgba(0, 0, 0, 0.315);
 }
 
-/* --- Tema Claro (Light Mode) --- */
-body.light-mode {
-    --text-color: #222;
-    --background-dark: #f4f4f4;
-    --background-dark-transparent: rgba(255, 255, 255, 0.85);
-    --shadow-strong: 2px 2px 4px rgba(0, 0, 0, 0.2);
-    color: var(--text-color);
-}
-
-body.light-mode .weekly-plan-generator,
-body.light-mode .info-section,
-body.light-mode .results-section,
-body.light-mode .scheduling-section,
-body.light-mode .faq-section,
-body.light-mode .submission-area {
-    background: rgba(255, 255, 255, 0.7);
-    border-color: rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(15px);
-}
-
-body.light-mode .exercise-item {
-    background: linear-gradient(145deg, #ffffff, #f0f0f0);
-    color: #333;
-    border-color: #ddd;
-}
-
-body.light-mode .exercise-name, 
-body.light-mode .exercise-details,
-body.light-mode h4,
-body.light-mode .tab-btn {
-    color: #333;
-}
-
-body.light-mode .tab-btn:hover { color: var(--primary-color); }
-
-.ribeye-regular {
-  font-family: "Ribeye", serif;
-  font-weight: 400;
-  font-style: normal;
-}
- 
 body {
     /* Propriedade 'background' abreviada para mais concisão */
     font-family: 'Science Gothic', sans-serif; /* Define a fonte padrão para todo o site */
@@ -63,6 +22,16 @@ body {
 
 .container {
     text-align: center; /* Centraliza todo o conteúdo dentro do container */
+    overflow-x: hidden; /* Evita rolagem horizontal indesejada em mobile */
+}
+
+.header-logo {
+   width: 600px;wi
+   width: 650px;
+    max-width: 95%; /* Garante responsividade em telas menores */
+    height: auto;
+    margin-top: 10px;
+    filter: drop-shadow(0 6px 20px rgba(0, 0, 0, 0.6)); /* Adiciona destaque visual sobre o fundo */
 }
 
 /* Agrupando seletores de títulos para reduzir repetição */
@@ -119,6 +88,7 @@ ul {
     border-radius: 8px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
     transition: transform 0.3s ease, box-shadow 0.3s ease; /* Adiciona transição suave */
+    height: auto; /* Garante proporção correta */
    }
 
    /* Efeito de hover moderno para as imagens */
@@ -609,9 +579,6 @@ ul {
        opacity: 0.7;
        box-shadow: 0 0 15px rgba(46, 204, 113, 0.5);
    }
-   .exercise-item.completed {
-       opacity: 0.6;
-   }
 
    .exercise-item.completed .exercise-name {
        text-decoration: line-through;
@@ -734,120 +701,6 @@ ul {
     }
     .info-text { text-align: center; }
     .info-text p, .info-text ul { text-align: center; }
-}
-
-/* --- Estilos para a Seção FAQ --- */
-.faq-section {
-    margin-top: 60px;
-    padding: 20px;
-    background: rgba(0, 0, 0, 0.3);
-    padding: 30px;
-    /* Aplicando o mesmo efeito glassmorphism do gerador de treino */
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-radius: 15px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.faq-section h3 {
-    margin-bottom: 10px;
-}
-
-.faq-subtitle {
-    font-size: 1.1rem !important;
-    color: #ccc !important;
-    background: none !important;
-    padding: 0 !important;
-    margin-top: 0;
-    margin-bottom: 30px;
-    text-shadow: none !important;
-}
-
-.faq-container {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.faq-input-area {
-    display: flex;
-    gap: 10px;
-}
-
-#faq-input {
-    width: 100%;
-    padding: 12px;
-    border-radius: 8px;
-    border: 1px solid #555;
-    background-color: rgba(0, 0, 0, 0.4);
-    color: var(--text-color);
-    font-size: 1rem;
-}
-
-#faq-send-btn {
-    padding: 0 15px;
-    font-size: 1.2rem;
-    border-radius: 8px;
-    border: 2px solid var(--primary-color);
-    background-color: var(--primary-color);
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-}
-
-#faq-send-btn:hover {
-    background-color: #d62828;
-    transform: scale(1.05);
-}
-
-#faq-send-btn:disabled {
-    background-color: #555;
-    border-color: #555;
-    cursor: not-allowed;
-    transform: none;
-}
-
-.faq-results {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.5s ease-out;
-    margin-top: 20px;
-    background-color: rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
-}
-
-.faq-result-item {
-    padding: 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    text-align: left;
-}
-
-.faq-result-item:last-child {
-    border-bottom: none;
-}
-
-.faq-result-item p {
-    padding: 0;
-    background: none;
-    font-size: 1.1rem;
-}
-.faq-result-item h4 {
-    margin-top: 0;
-    margin-bottom: 10px;
-    color: var(--primary-color);
-    font-size: 1.2rem;
-    font-style: normal;
-}
-
-.faq-result-item.loading p {
-    font-style: italic;
-    color: #aaa;
-    animation: pulse-text 1.5s infinite ease-in-out;
-}
-
-@keyframes pulse-text {
-    0%, 100% { opacity: 0.5; }
-    50% { opacity: 1; }
 }
 
 /* --- Seção de Resultados (Antes e Depois) --- */
@@ -1313,11 +1166,6 @@ footer p {
     gap: 15px;
 }
 
-.theme-btn {
-    background: rgba(0,0,0,0.5);
-    margin-right: 10px;
-    border: 1px solid rgba(255,255,255,0.2);
-}
 
 #user-logged-area {
     display: flex;
@@ -1449,13 +1297,42 @@ footer p {
 }
 
 .auth-modal-content {
-    max-width: 400px;
-    width: 100%;
+    max-width: 900px;
+    width: 95%;
     background: rgba(15, 15, 15, 0.95);
     border: 1px solid #333;
     box-shadow: 0 0 50px rgba(0, 0, 0, 0.9);
-    padding: 40px;
+    padding: 0;
     border-radius: 15px;
+    display: flex;
+    overflow: hidden;
+}
+
+.auth-image-side {
+    flex: 1;
+    background: url('z-img/academia.jpg') no-repeat center center;
+    background-size: cover;
+    position: relative;
+    min-height: 500px;
+}
+
+.auth-image-side::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom right, rgba(230, 57, 70, 0.3), rgba(0,0,0,0.6));
+}
+
+.auth-form-side {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
 }
 
 .auth-branding {
@@ -1484,6 +1361,37 @@ footer p {
     padding: 0;
     margin: 0;
 }
+
+/* Feedback Visual (Mensagens) */
+.auth-feedback {
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+    text-align: center;
+    animation: fadeIn 0.3s;
+}
+.auth-feedback.error {
+    background-color: rgba(231, 76, 60, 0.2);
+    border: 1px solid #e74c3c;
+    color: #ffadad;
+}
+.auth-feedback.success {
+    background-color: rgba(46, 204, 113, 0.2);
+    border: 1px solid #2ecc71;
+    color: #a8f0c6;
+}
+
+/* Opções do Formulário (Lembrar-me + Esqueci Senha) */
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 5px;
+    font-size: 0.9rem;
+    color: #ccc;
+}
+.checkbox-label { display: flex; align-items: center; gap: 5px; cursor: pointer; }
 
 .auth-tabs-header {
     display: flex;
@@ -1546,6 +1454,17 @@ footer p {
 
 @media (max-width: 768px) {
     .top-auth-bar { justify-content: center; margin-bottom: 10px; }
+    
+    .auth-modal-content {
+        flex-direction: column;
+        max-width: 450px;
+    }
+    .auth-image-side {
+        display: none;
+    }
+    .auth-form-side {
+        padding: 30px;
+    }
 }
 
 /* --- Modo Bloqueio de Tela (Lock Screen) --- */
@@ -1579,11 +1498,11 @@ body.body-locked .container {
     animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
 }
 
-/* Botão Esqueci Minha Senha */
-.forgot-btn {
-    align-self: flex-end;
-    font-size: 0.85rem;
-    margin-bottom: 5px;
+/* Estado de Carregamento do Botão */
+.cta-button:disabled {
+    background-color: #555;
+    cursor: not-allowed;
+    opacity: 0.7;
 }
 
 /* Input de Arquivo no Cadastro */
@@ -1739,7 +1658,6 @@ body.body-locked .container {
     /* Reduz padding para ganhar espaço */
     .weekly-plan-generator, 
     .results-section, 
-    .faq-section, 
     .scheduling-section,
     .submission-area {
         padding: 15px;
@@ -1800,6 +1718,15 @@ body.body-locked .container {
     border: 1px solid rgba(255,255,255,0.1);
 }
 
+.admin-chart-container {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    height: 250px; /* Altura fixa para o gráfico */
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
 .admin-table-container {
     overflow-x: auto;
     margin-top: 20px;
@@ -1835,6 +1762,18 @@ body.body-locked .container {
     object-fit: cover;
 }
 
+.view-workouts-btn {
+    background-color: #3498db;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.8rem;
+    margin-right: 5px;
+}
+.view-workouts-btn:hover { background-color: #2980b9; }
+
 .delete-user-btn {
     background-color: #c0392b;
     color: white;
@@ -1845,3 +1784,88 @@ body.body-locked .container {
     font-size: 0.8rem;
 }
 .delete-user-btn:hover { background-color: #e74c3c; }
+
+.admin-workouts-content {
+    max-width: 600px;
+    width: 95%;
+    background: #1a1a1a;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.delete-workout-btn {
+    background-color: #c0392b;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.delete-workout-btn:hover { background-color: #e74c3c; }
+
+/* --- Botões Flutuantes (WhatsApp e Instagram) --- */
+@keyframes pulse-whatsapp {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(37, 211, 102, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+}
+.whatsapp-button-injected {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background-color: #25D366;
+    color: white;
+    text-decoration: none;
+    border-radius: 50%;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    animation: pulse-whatsapp 2s infinite;
+}
+.whatsapp-button-injected:hover {
+    background-color: #128C7E;
+    transform: scale(1.1);
+    animation: none;
+}
+.whatsapp-button-injected .fa-whatsapp {
+    font-size: 28px;
+}
+@keyframes pulse-instagram {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(225, 48, 108, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(225, 48, 108, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(225, 48, 108, 0); }
+}
+.instagram-button-injected {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1000;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background-color: #E1306C;
+    color: white; 
+    text-decoration: none;
+    border-radius: 50%;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    animation: pulse-instagram 2s infinite;
+}
+.instagram-button-injected:hover {
+    background-color: #C135A1; 
+    transform: scale(1.1);
+    animation: none;
+}
+.instagram-button-injected .fa-instagram {
+    font-size: 24px;
+}

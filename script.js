@@ -3,9 +3,6 @@
  * Organiza a lógica do gerador de ficha de treino, FAQ e galeria.
  */
 class WorkoutGenerator {
-    // Constantes para valores fixos (melhora a manutenção)
-    static SWAP_ANIMATION_DURATION = 300;
-
     constructor() {
         this.dom = {}; // Objeto para armazenar todos os elementos do DOM
         this.initDomElements();
@@ -51,10 +48,6 @@ class WorkoutGenerator {
         // Inicializa a galeria como um módulo separado
         const gallery = new InteractiveGallery();
         gallery.init();
-
-        // Inicializa o FAQ como um módulo separado
-        const faq = new FaqHandler();
-        faq.init();
     }
 
     async fetchExercises() {
@@ -159,8 +152,8 @@ class WorkoutGenerator {
         // Renderiza o Skeleton Screen
         this.renderSkeletonScreen();
 
-        // Simula tempo de processamento (aumentado para 1.5s para visualizar o efeito)
-        await new Promise(resolve => setTimeout(resolve, 1500));
+        // Simula tempo de "processamento"
+        await new Promise(resolve => setTimeout(resolve, 500));
 
         const limitations = Array.from(this.dom.limitationsCheckboxes)
             .filter(cb => cb.checked)
@@ -443,20 +436,6 @@ class WorkoutGenerator {
         }
     }
 
-    toggleLoading(isLoading, level = null) {
-        this.dom.loaderEl.style.display = isLoading ? 'block' : 'none';
-        this.dom.actionButtonsContainer.style.display = !isLoading && this.dom.workoutContentContainer.hasChildNodes() ? 'flex' : 'none';
-
-        this.dom.levelButtons.forEach(button => {
-            button.disabled = isLoading;
-            if (isLoading && button.dataset.level === level) {
-                button.classList.add('active');
-            } else if (!isLoading) {
-                button.classList.remove('active'); // Remove o estado de carregamento
-            }
-        });
-    }
-
     handleDownloadPdf() {
         if (typeof html2pdf === 'undefined') {
             alert('Biblioteca de PDF não carregada. Usando impressão padrão.');
@@ -520,6 +499,7 @@ class AuthManager {
         this.dom = {};
         this.currentUser = null;
         this.ADMIN_EMAIL = 'admin@samuel.com'; // Email mestre
+        this.adminChart = null; // Armazena a instância do gráfico
     }
 
     init() {
@@ -542,7 +522,10 @@ class AuthManager {
         
         // Formulário de Login
         this.dom.loginForm = document.getElementById('login-form');
+        this.dom.loginRemember = document.getElementById('login-remember');
+        this.dom.loginSubmitBtn = document.getElementById('login-submit-btn');
         this.dom.forgotPasswordBtn = document.getElementById('forgot-password-btn');
+        this.dom.regSubmitBtn = document.getElementById('reg-submit-btn');
         
         // Área Logada
         this.dom.userLoggedArea = document.getElementById('user-logged-area');
@@ -564,6 +547,16 @@ class AuthManager {
         this.dom.adminModal = document.getElementById('admin-modal');
         this.dom.closeAdminBtn = document.getElementById('close-admin-btn');
         this.dom.adminUsersList = document.getElementById('admin-users-list');
+        this.dom.adminChartCanvas = document.getElementById('adminWorkoutChart');
+
+        // Admin Panel Workouts
+        this.dom.adminUserWorkoutsModal = document.getElementById('admin-user-workouts-modal');
+        this.dom.closeAdminWorkoutsBtn = document.getElementById('close-admin-workouts-btn');
+        this.dom.adminWorkoutsTitle = document.getElementById('admin-workouts-title');
+        this.dom.adminWorkoutsList = document.getElementById('admin-workouts-list');
+
+        // Feedback
+        this.dom.authFeedback = document.getElementById('auth-feedback');
     }
 
     addEventListeners() {
@@ -610,6 +603,10 @@ class AuthManager {
         this.dom.menuAdminPanel.addEventListener('click', () => this.openAdminPanel());
         this.dom.closeAdminBtn.addEventListener('click', () => this.dom.adminModal.style.display = 'none');
 
+        if (this.dom.closeAdminWorkoutsBtn) {
+            this.dom.closeAdminWorkoutsBtn.addEventListener('click', () => this.dom.adminUserWorkoutsModal.style.display = 'none');
+        }
+
         // Botão Esqueci Minha Senha
         if (this.dom.forgotPasswordBtn) {
             this.dom.forgotPasswordBtn.addEventListener('click', () => {
@@ -617,10 +614,11 @@ class AuthManager {
                 let email = emailInput.value;
                 
                 if (!email) {
-                    email = prompt("Por favor, digite seu email para enviarmos o link de recuperação:");
+                    this.showFeedback("Digite seu email no campo acima primeiro.", "error");
+                    return;
                 }
                 
-                if (email) alert(`Um link de redefinição de senha foi enviado para: ${email}\n(Verifique sua caixa de entrada ou spam)`);
+                this.showFeedback(`Link de recuperação enviado para: ${email}`, "success");
             });
         }
 
@@ -629,6 +627,7 @@ class AuthManager {
             btn.addEventListener('click', () => {
                 this.dom.tabBtns.forEach(b => b.classList.remove('active'));
                 this.dom.forms.forEach(f => f.classList.remove('active'));
+                this.dom.authFeedback.style.display = 'none'; // Limpa feedback ao trocar
                 
                 btn.classList.add('active');
                 document.getElementById(btn.dataset.target).classList.add('active');
@@ -647,8 +646,12 @@ class AuthManager {
         });
 
         // Submit Cadastro
-        this.dom.regForm.addEventListener('submit', (e) => {
+        this.dom.regForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+            this.setLoading(this.dom.regSubmitBtn, true, 'Cadastrando...');
+            
+            // Simula delay de rede
+            await new Promise(r => setTimeout(r, 300));
             
             const processRegistration = (photoBase64) => {
                 const userData = {
@@ -663,14 +666,16 @@ class AuthManager {
                 // Suporte a múltiplos usuários
                 const users = JSON.parse(localStorage.getItem('samuel_users_list') || '[]');
                 if (users.some(u => u.email === userData.email)) {
-                    alert('Este email já está cadastrado.');
+                    this.showFeedback('Este email já está cadastrado.', 'error');
+                    this.setLoading(this.dom.regSubmitBtn, false, 'Cadastrar e Entrar');
                     return;
                 }
                 users.push(userData);
                 localStorage.setItem('samuel_users_list', JSON.stringify(users));
                 
-                this.loginUser(userData);
-                alert('Cadastro realizado com sucesso! Bem-vindo(a).');
+                this.loginUser(userData, true); // Cadastro sempre lembra por padrão ou não
+                this.showFeedback('Cadastro realizado com sucesso!', 'success');
+                this.setLoading(this.dom.regSubmitBtn, false, 'Cadastrar e Entrar');
             };
 
             const file = this.dom.regPhoto.files[0];
@@ -684,25 +689,33 @@ class AuthManager {
         });
 
         // Submit Login
-        this.dom.loginForm.addEventListener('submit', (e) => {
+        this.dom.loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+            this.setLoading(this.dom.loginSubmitBtn, true, 'Entrando...');
+            this.dom.authFeedback.style.display = 'none';
+
+            // Simula delay de rede
+            await new Promise(r => setTimeout(r, 300));
+
             const email = document.getElementById('login-email').value;
             const password = document.getElementById('login-password').value;
+            const remember = document.getElementById('login-remember').checked;
             
             // Busca do "banco de dados" de múltiplos usuários
             const users = JSON.parse(localStorage.getItem('samuel_users_list') || '[]');
             const storedDbUser = users.find(u => u.email === email && u.password === password);
             
             if (storedDbUser) {
-                this.loginUser(storedDbUser);
+                this.loginUser(storedDbUser, remember);
             } else {
                 this.dom.loginForm.classList.add('shake');
+                this.showFeedback('Email ou senha incorretos.', 'error');
                 setTimeout(() => this.dom.loginForm.classList.remove('shake'), 500);
                 
                 // Limpa a senha para tentar de novo
                 document.getElementById('login-password').value = '';
-                // alert('Email ou senha incorretos!'); // Opcional: remover o alert para deixar só o visual
             }
+            this.setLoading(this.dom.loginSubmitBtn, false, 'Entrar');
         });
 
         // Atualizar Estatísticas (Peso/Altura)
@@ -717,13 +730,31 @@ class AuthManager {
         });
 
         this.dom.logoutBtn.addEventListener('click', () => {
-            localStorage.removeItem('samuel_active_session'); // Remove da sessão
-            location.reload();
+            this.logout();
         });
     }
 
-    loginUser(userData) {
-        localStorage.setItem('samuel_active_session', JSON.stringify(userData)); // Salva na sessão (persistente)
+    setLoading(btn, isLoading, text) {
+        btn.disabled = isLoading;
+        btn.innerHTML = isLoading ? `<i class="fas fa-spinner fa-spin"></i> ${text}` : text;
+    }
+
+    showFeedback(msg, type) {
+        this.dom.authFeedback.textContent = msg;
+        this.dom.authFeedback.className = `auth-feedback ${type}`;
+        this.dom.authFeedback.style.display = 'block';
+    }
+
+    logout() {
+        localStorage.removeItem('samuel_active_session');
+        sessionStorage.removeItem('samuel_active_session');
+            location.reload();
+    }
+
+    loginUser(userData, remember = false) {
+        const storage = remember ? localStorage : sessionStorage;
+        storage.setItem('samuel_active_session', JSON.stringify(userData));
+        
         this.currentUser = userData;
         this.updateUI(true);
         // Remove o bloqueio da tela
@@ -733,7 +764,9 @@ class AuthManager {
     }
 
     checkSession() {
-        const storedUser = localStorage.getItem('samuel_active_session'); // Verifica sessão
+        // Verifica em ambos os storages
+        const storedUser = localStorage.getItem('samuel_active_session') || sessionStorage.getItem('samuel_active_session');
+        
         if (storedUser) {
             this.currentUser = JSON.parse(storedUser);
             this.updateUI(true);
@@ -783,7 +816,12 @@ class AuthManager {
         this.currentUser.photo = photoBase64;
         
         // Atualiza sessão atual
-        localStorage.setItem('samuel_active_session', JSON.stringify(this.currentUser));
+        // Atualiza onde estiver salvo (local ou session)
+        if (localStorage.getItem('samuel_active_session')) {
+            localStorage.setItem('samuel_active_session', JSON.stringify(this.currentUser));
+        } else {
+            sessionStorage.setItem('samuel_active_session', JSON.stringify(this.currentUser));
+        }
         
         // Atualiza "banco de dados" persistente
         const users = JSON.parse(localStorage.getItem('samuel_users_list') || '[]');
@@ -803,7 +841,11 @@ class AuthManager {
         this.currentUser.height = height;
         
         // Atualiza sessão
-        localStorage.setItem('samuel_active_session', JSON.stringify(this.currentUser));
+        if (localStorage.getItem('samuel_active_session')) {
+            localStorage.setItem('samuel_active_session', JSON.stringify(this.currentUser));
+        } else {
+            sessionStorage.setItem('samuel_active_session', JSON.stringify(this.currentUser));
+        }
         
         // Atualiza DB persistente
         const users = JSON.parse(localStorage.getItem('samuel_users_list') || '[]');
@@ -892,7 +934,72 @@ class AuthManager {
     openAdminPanel() {
         this.dom.adminModal.style.display = 'flex';
         this.dom.userMenuDropdown.style.display = 'none';
+        this.renderAdminChart(); // Renderiza o gráfico ao abrir
         this.renderUserList();
+    }
+
+    renderAdminChart() {
+        if (!this.dom.adminChartCanvas || typeof Chart === 'undefined') return;
+
+        // 1. Coleta dados de todos os usuários
+        const users = JSON.parse(localStorage.getItem('samuel_users_list') || '[]');
+        const allWorkouts = [];
+        
+        users.forEach(user => {
+            const key = `samuel_saved_workouts_${user.email}`;
+            const workouts = JSON.parse(localStorage.getItem(key) || '[]');
+            allWorkouts.push(...workouts);
+        });
+
+        // 2. Prepara os últimos 7 dias
+        const labels = [];
+        const dataCounts = [];
+        const today = new Date();
+        
+        for (let i = 6; i >= 0; i--) {
+            const d = new Date(today);
+            d.setDate(today.getDate() - i);
+            const dateStr = d.toLocaleDateString('pt-BR'); // Formato DD/MM/AAAA
+            labels.push(dateStr.slice(0, 5)); // Pega só DD/MM para o gráfico
+            
+            // Conta treinos nesta data
+            const count = allWorkouts.filter(w => w.date === dateStr).length;
+            dataCounts.push(count);
+        }
+
+        // 3. Renderiza ou Atualiza o Gráfico
+        const ctx = this.dom.adminChartCanvas.getContext('2d');
+        
+        if (this.adminChart) {
+            this.adminChart.destroy(); // Limpa anterior para não sobrepor
+        }
+
+        this.adminChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Treinos Gerados (Últimos 7 dias)',
+                    data: dataCounts,
+                    borderColor: '#e63946',
+                    backgroundColor: 'rgba(230, 57, 70, 0.2)',
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.4 // Curva suave
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { labels: { color: '#fff' } },
+                },
+                scales: {
+                    y: { beginAtZero: true, ticks: { color: '#aaa', stepSize: 1 }, grid: { color: '#333' } },
+                    x: { ticks: { color: '#aaa' }, grid: { color: '#333' } }
+                }
+            }
+        });
     }
 
     renderUserList() {
@@ -900,24 +1007,38 @@ class AuthManager {
         this.dom.adminUsersList.innerHTML = '';
 
         if (users.length === 0) {
-            this.dom.adminUsersList.innerHTML = '<tr><td colspan="5">Nenhum usuário cadastrado.</td></tr>';
+            this.dom.adminUsersList.innerHTML = '<tr><td colspan="6">Nenhum usuário cadastrado.</td></tr>';
             return;
         }
 
         users.forEach((user, index) => {
             const tr = document.createElement('tr');
             const photoSrc = user.photo || 'z-img/placeholder-upload.png';
+            const userKey = `samuel_saved_workouts_${user.email}`;
+            const workoutsCount = JSON.parse(localStorage.getItem(userKey) || '[]').length;
             
             tr.innerHTML = `
                 <td><img src="${photoSrc}" class="admin-user-thumb" alt="Foto"></td>
                 <td>${user.name} ${user.email === this.ADMIN_EMAIL ? '👑' : ''}</td>
                 <td>${user.email}</td>
                 <td>${user.age || '--'}</td>
+                <td>${workoutsCount}</td>
                 <td>
-                    ${user.email !== this.ADMIN_EMAIL ? `<button class="delete-user-btn" data-email="${user.email}">Excluir</button>` : '<span style="color:#aaa; font-size:0.8rem;">Admin</span>'}
+                    ${user.email !== this.ADMIN_EMAIL ? `
+                        <button class="view-workouts-btn" data-email="${user.email}" data-name="${user.name}" title="Ver Treinos"><i class="fas fa-eye"></i></button>
+                        <button class="delete-user-btn" data-email="${user.email}" title="Excluir Usuário"><i class="fas fa-trash"></i></button>
+                    ` : '<span style="color:#aaa; font-size:0.8rem;">Admin</span>'}
                 </td>
             `;
             this.dom.adminUsersList.appendChild(tr);
+        });
+
+        // Adiciona eventos para ver treinos
+        this.dom.adminUsersList.querySelectorAll('.view-workouts-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const button = e.target.closest('.view-workouts-btn');
+                this.viewUserWorkouts(button.dataset.email, button.dataset.name);
+            });
         });
 
         // Adiciona eventos de exclusão
@@ -935,23 +1056,44 @@ class AuthManager {
             });
         });
     }
-}
 
-class ThemeManager {
-    constructor() {
-        this.themeBtn = document.getElementById('theme-toggle-btn');
-        this.body = document.body;
-        this.init();
+    viewUserWorkouts(email, name) {
+        this.dom.adminUserWorkoutsModal.style.display = 'flex';
+        this.dom.adminWorkoutsTitle.textContent = `Treinos de ${name}`;
+        this.renderUserWorkouts(email);
     }
 
-    init() {
-        const savedTheme = localStorage.getItem('samuel_theme');
-        if (savedTheme === 'light') this.body.classList.add('light-mode');
+    renderUserWorkouts(email) {
+        const userKey = `samuel_saved_workouts_${email}`;
+        const workouts = JSON.parse(localStorage.getItem(userKey) || '[]');
+        this.dom.adminWorkoutsList.innerHTML = '';
 
-        this.themeBtn.addEventListener('click', () => {
-            this.body.classList.toggle('light-mode');
-            const isLight = this.body.classList.contains('light-mode');
-            localStorage.setItem('samuel_theme', isLight ? 'light' : 'dark');
+        if (workouts.length === 0) {
+            this.dom.adminWorkoutsList.innerHTML = '<p>Nenhum treino salvo para este usuário.</p>';
+            return;
+        }
+
+        workouts.forEach(workout => {
+            const card = document.createElement('div');
+            card.className = 'saved-workout-card';
+            card.innerHTML = `
+                <div class="saved-workout-info">
+                    <h4>Treino ${workout.level}</h4>
+                    <p>Data: ${workout.date}</p>
+                </div>
+                <button class="delete-workout-btn" data-id="${workout.id}">Excluir</button>
+            `;
+            
+            card.querySelector('.delete-workout-btn').addEventListener('click', () => {
+                if(confirm('Excluir este treino do usuário?')) {
+                    const updatedWorkouts = workouts.filter(w => w.id !== workout.id);
+                    localStorage.setItem(userKey, JSON.stringify(updatedWorkouts));
+                    this.renderUserWorkouts(email); // Re-renderiza a lista
+                    this.renderUserList(); // Atualiza a contagem na tabela principal
+                }
+            });
+
+            this.dom.adminWorkoutsList.appendChild(card);
         });
     }
 }
@@ -970,6 +1112,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const auth = new AuthManager();
     auth.init();
-
-    new ThemeManager();
 });
