@@ -1700,8 +1700,14 @@ body.body-locked .container {
 
 @media (max-width: 480px) {
     /* Ajustes finos para celulares */
-    h1 { font-size: 1.8rem; }
-    h2, h3 { font-size: 1.5rem; }
+    h1 { font-size: 1.5rem; }
+    h2, h3 { font-size: 1.2rem; }
+
+    /* Reduz o tamanho do texto e centraliza para melhor leitura no celular */
+    p, ul {
+        font-size: 1rem;
+        text-align: center;
+    }
     
     /* Reduz padding para ganhar espaço */
     .weekly-plan-generator, 
@@ -1765,6 +1771,20 @@ body.body-locked .container {
     }
 }
 
+/* --- Painel Administrativo --- */
+.admin-modal-content {
+    max-width: 900px;
+    width: 95%;
+    background: #1a1a1a;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+/* --- Painel Administrativo --- */
+.admin-modal-content {
+    max-width: 900px;
+    width: 95%;
+    background: #1a1a1a;
+    border: 1px solid rgba(255,255,255,0.1);
+}
 /* --- Painel Administrativo --- */
 .admin-modal-content {
     max-width: 900px;
@@ -1917,6 +1937,41 @@ body.body-locked .container {
     animation: pulse-instagram 2s infinite;
 }
 .instagram-button-injected:hover {
+    background-color: #C135A1; 
+    transform: scale(1.1);
+    animation: none;
+}
+.instagram-button-injected .fa-instagram {
+    font-size: 24px;
+}instagram-button-injected:hover {
+    background-color: #C135A1; 
+    transform: scale(1.1);
+    animation: none;
+}
+.instagram-button-injected .fa-instagram {
+    font-size: 24px;
+}instagram-button-injected:hover {
+    background-color: #C135A1; 
+    transform: scale(1.1);
+    animation: none;
+}
+.instagram-button-injected .fa-instagram {
+    font-size: 24px;
+}instagram-button-injected:hover {
+    background-color: #C135A1; 
+    transform: scale(1.1);
+    animation: none;
+}
+.instagram-button-injected .fa-instagram {
+    font-size: 24px;
+}instagram-button-injected:hover {
+    background-color: #C135A1; 
+    transform: scale(1.1);
+    animation: none;
+}
+.instagram-button-injected .fa-instagram {
+    font-size: 24px;
+}instagram-button-injected:hover {
     background-color: #C135A1; 
     transform: scale(1.1);
     animation: none;
