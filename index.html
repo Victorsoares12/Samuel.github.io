@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+    <!-- Configurações de metadados, título e importação de estilos externos -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-adsense-account" content="ca-pub-4569048511826768">
@@ -24,33 +25,25 @@
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5LNKRPFD"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
-    <div class="container">
-        <!-- Barra de Autenticação / Área do Aluno -->
-        <div class="top-auth-bar">
-            <div id="user-logged-area" style="display: none;">
-                <div id="user-menu-trigger" class="user-menu-trigger">
-                    <img id="user-profile-pic" src="" alt="Foto de Perfil" style="display: none;">
-                    <span>Olá, <strong id="display-username">Aluno</strong> <i class="fas fa-chevron-down"></i></span>
-                </div>
-                <!-- Menu Dropdown -->
-                <div id="user-menu-dropdown" class="user-menu-dropdown" style="display: none;">
-                    <button id="menu-profile"><i class="fas fa-user-circle"></i> Meu Perfil</button>
-                    <button id="menu-my-workouts"><i class="fas fa-dumbbell"></i> Meus Treinos Salvos</button>
-                    <button id="menu-admin-panel" style="display: none; color: var(--primary-color);"><i class="fas fa-users-cog"></i> Painel Admin</button>
-                    <label for="update-photo-input" class="menu-item-label"><i class="fas fa-camera"></i> Alterar Foto</label>
-                    <input type="file" id="update-photo-input" accept="image/*" style="display: none;">
-                    <button id="menu-logout"><i class="fas fa-sign-out-alt"></i> Sair</button>
-                </div>
-            </div>
-        </div>
+        <!-- Barra de Navegação Principal -->
+        <nav class="main-nav">
+            <ul>
+                <li><a href="#sobre-mim">Sobre Mim</a></li>
+                <li><a href="#servicos">Meus Serviços</a></li>
+                <li><a href="#mfit">Mfit</a></li>
+                <li><a href="#resultados">Resultados Reais</a></li>
+            </ul>
+        </nav>
 
+        <!-- Logo e Título Principal -->
         <div class="header-wrapper">
             <img class="header-logo" src="z-img/Logo_samuel.png" alt="Logo Treinador Samuel">
         </div>
         <h1>Personal Trainer</h1>
 
         <!-- Seção Sobre Mim com imagem ao lado -->
-        <section class="info-section">
+        <!-- Apresentação do profissional -->
+        <section id="sobre-mim" class="info-section">
             <div class="info-image">
                 <img src="z-img/samuel.png" alt="Samuel Personal Trainer">
             </div>
@@ -61,7 +54,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </section>
 
         <!-- Seção Meus Serviços com imagem ao lado -->
-        <section class="info-section reverse">
+        <!-- Lista de serviços oferecidos -->
+        <section id="servicos" class="info-section reverse">
             <div class="info-text">
                 <h3>Meus Serviços</h3>
                 <ul>
@@ -77,7 +71,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </section>
 
         <!-- Seção Mfit Personal -->
-        <section class="info-section">
+        <!-- Divulgação do aplicativo parceiro -->
+        <section id="mfit" class="info-section">
             <div class="info-image">
                 <!-- Certifique-se de adicionar uma imagem chamada 'mfit.jpg' na pasta z-img -->
                 <img src="z-img/mfit.png" alt="Aplicativo Mfit Personal">
@@ -90,39 +85,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
         </section>
         
-        <!-- Seção do Gerador de Ficha Semanal -->
-        <div id="weekly-plan-generator" class="weekly-plan-generator">
-            <h3> Ficha Inteligente 🤖</h3>
-            <div class="user-data-section">
-                <!-- Calculadora de IMC -->
-                <field class="imc-calculator">
-                    <legend><h4>Calculadora de IMC</h4></legend>
-                    <div class="input-group">
-                        <label for="height" class="sr-only">Altura em metros</label>
-                        <input type="number" id="height" placeholder="Altura (ex: 1.75)">
-                        <label for="weight" class="sr-only">Peso em kg</label>
-                        <input type="number" id="weight" placeholder="Peso (ex: 70)">
-                    </div>
-                    <!-- aria-live anuncia a mudança para leitores de tela -->
-                    <div id="imc-result" aria-live="polite"></div>
-                </field>
-            <!-- Animação de Carregamento (agora também usada para a troca de nível) -->
-            <div id="loader" class="loader" style="display: none;"></div>
-            <!-- Botões de Ação: Imprimir e Baixar PDF -->
-            <div id="action-buttons" class="action-buttons-container" style="display: none;">
-                <button id="print-btn" class="action-btn">🖨️ Imprimir Ficha</button>
-                <button id="pdf-btn" class="action-btn">📄 Baixar PDF</button>
-            </div>
-            
-            <!-- Estrutura da Ficha de Treino com Abas -->
-            <div id="workout-plan-container" class="workout-plan-container" style="display: none;">
-                <div id="workout-tabs" class="workout-tabs"></div>
-                <div id="workout-content" class="workout-content" aria-live="polite"></div>
-            </div>
-        </div>
-
         <!-- Seção de Resultados (Antes e Depois) -->
-        <section class="results-section">
+        <!-- Galeria interativa de transformações de alunos -->
+        <section id="resultados" class="results-section">
             <h3>Resultados Reais 🏆</h3>
             <p class="results-subtitle">Veja a transformação de alguns dos meus alunos e inspire-se!</p>
             <div class="gallery-scroll-container">
@@ -158,6 +123,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </section>
 
         <!-- Modal para inserir dados da transformação -->
+        <!-- Formulário oculto que aparece ao enviar fotos -->
         <div id="submission-modal" class="modal-overlay" style="display: none;">
             <div class="modal-content">
                 <h3>Detalhes da sua Transformação</h3>
@@ -173,6 +139,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
 
         <!-- Seção de Agendamentos Inteligentes -->
+        <!-- Informações sobre como contratar/agendar -->
         <section class="scheduling-section">
             <h3>Comece Agora: Escolha seu Caminho 🚀</h3>
             <p class="scheduling-subtitle">Otimize seu tempo e nunca mais perca um treino com a integração direta ao WhatsApp.</p>
@@ -191,21 +158,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         <label>Selecione o tipo de treino:</label>
                         <div>
                             <button class="training-type-btn active" data-type="consultoria">Consultoria Online</button>
-                            <button class="training-type-btn" data-type="ficha-inteligente">Ficha Inteligente</button>
                         </div>
                     </div>
                     <div id="simulation-consultoria" class="simulation-details active">
                         <p>Para um acompanhamento completo, com plano de treino e nutrição 100% personalizados para seus objetivos, fale diretamente comigo!</p>
                         <a href="https://wa.link/o6kn2i" target="_blank" class="cta-button">Quero uma Consultoria</a>
                     </div>
-                    <div id="simulation-ficha-inteligente" class="simulation-details">
-                        <p>Use nossa ferramenta gratuita para gerar uma ficha de treino dinâmica e inteligente agora mesmo, com base no seu nível e limitações.</p>
-                        <a href="#weekly-plan-generator" class="cta-button">Montar meu Treino Online</a>
-                    </div>
                 </div>
             </div>
         </section>
 
+        <!-- Rodapé com anúncios e direitos autorais -->
         <footer>
         <div class="footer-ad">
             <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4569048511826768"
@@ -224,9 +187,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="footer-social-media">
             </div>
             <p>&copy; 2024 Treinador Samuel. Todos os direitos reservados.</p>
+            <p>&copy; 2026 Desenvolvedor Victor Soares.</p>
         </footer>
     </div>
-    <script src="gallery.js" defer></script>
+    <!-- Scripts JS (Lógica da página e bibliotecas) -->
     <!-- Biblioteca para gerar PDF -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="script.js" defer></script>
@@ -245,191 +209,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <img class="modal-image" id="modal-img-content" src="" alt="Imagem Ampliada">
     </div>
 
-    <!-- Modal de Autenticação (Login/Cadastro) -->
-    <div id="auth-modal" class="modal-overlay" style="display: none;">
-        <div class="modal-content auth-modal-content">
-            <!-- Lado da Imagem -->
-            <div class="auth-image-side"></div>
+   
 
-            <!-- Lado do Formulário -->
-            <div class="auth-form-side">
-                <span class="close-modal-btn" id="close-auth-btn">&times;</span>
-                
-                <!-- Branding da Tela de Login -->
-                <div class="auth-branding">
-                    <img src="z-img/Treinador_Samuel.png" alt="Logo Treinador Samuel">
-                    <h2>Bem-vindo, Atleta</h2>
-                    <p>Faça login para acessar sua área exclusiva</p>
-                </div>
-
-                <!-- Feedback Visual (Mensagens de Erro/Sucesso) -->
-                <div id="auth-feedback" class="auth-feedback" style="display: none;"></div>
-
-                <div class="auth-tabs-header">
-                    <button class="auth-tab-btn active" data-target="login-form">Entrar</button>
-                    <button class="auth-tab-btn" data-target="register-form">Cadastrar</button>
-                </div>
-
-                <!-- Formulário de Login -->
-                <form id="login-form" class="auth-form active">
-                    <h3>Acesse sua conta</h3>
-                    <div class="input-group-vertical">
-                        <label for="login-email">Email</label>
-                        <input type="email" id="login-email" placeholder="seu@email.com" required>
-                    </div>
-                    <div class="input-group-vertical">
-                        <label for="login-password">Senha</label>
-                        <input type="password" id="login-password" placeholder="******" required>
-                    </div>
-                    <div class="form-options">
-                        <label class="checkbox-label">
-                            <input type="checkbox" id="login-remember"> Lembrar-me
-                        </label>
-                        <button type="button" id="forgot-password-btn" class="text-btn forgot-btn">Esqueci minha senha</button>
-                    </div>
-                    <button type="submit" id="login-submit-btn" class="cta-button full-width">Entrar</button>
-                </form>
-
-                <!-- Formulário de Cadastro -->
-                <form id="register-form" class="auth-form">
-                    <h3>Novo Cadastro</h3>
-                    <div class="input-group-vertical">
-                        <label for="reg-name">Nome Completo</label>
-                        <input type="text" id="reg-name" placeholder="Seu nome" required>
-                    </div>
-                    <div class="input-group-vertical">
-                        <label for="reg-email">Email</label>
-                        <input type="email" id="reg-email" placeholder="seu@email.com" required>
-                    </div>
-                    <div class="input-group-vertical">
-                        <label for="reg-password">Senha</label>
-                        <input type="password" id="reg-password" placeholder="Crie uma senha segura" required>
-                    </div>
-                    <div class="input-group-vertical">
-                        <label for="reg-photo">Foto de Perfil (Opcional)</label>
-                        <input type="file" id="reg-photo" accept="image/*">
-                    </div>
-                    <div class="form-row">
-                        <div class="input-group-vertical flex-grow">
-                            <label for="reg-dob">Data de Nascimento</label>
-                            <input type="date" id="reg-dob" required>
-                        </div>
-                        <div class="input-group-vertical">
-                            <label for="reg-age">Idade</label>
-                            <input type="text" id="reg-age" placeholder="--" readonly style="width: 60px; text-align: center;">
-                        </div>
-                    </div>
-                    <button type="submit" id="reg-submit-btn" class="cta-button full-width">Cadastrar e Entrar</button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal de Treinos Salvos -->
-    <div id="saved-workouts-modal" class="modal-overlay" style="display: none;">
-        <div class="modal-content saved-workouts-content">
-            <span class="close-modal-btn" id="close-saved-btn">&times;</span>
-            <h3>📚 Histórico de Treinos</h3>
-            <div id="saved-workouts-list" class="saved-workouts-list">
-                <p>Nenhum treino salvo encontrado.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal de Perfil do Usuário -->
-    <div id="profile-modal" class="modal-overlay" style="display: none;">
-        <div class="modal-content profile-modal-content">
-            <span class="close-modal-btn" id="close-profile-btn">&times;</span>
-            
-            <div class="profile-header">
-                <img id="profile-modal-pic" src="" alt="Foto de Perfil">
-                <div class="profile-info">
-                    <h2 id="profile-name">Nome do Usuário</h2>
-                    <p id="profile-email">email@exemplo.com</p>
-                    <p class="profile-meta">Idade: <span id="profile-age">--</span> anos</p>
-                </div>
-            </div>
-            
-            <div class="profile-body">
-                <h3>Minhas Estatísticas 📊</h3>
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <i class="fas fa-weight"></i>
-                        <span>Peso (kg)</span>
-                        <strong id="stat-weight">--</strong>
-                    </div>
-                    <div class="stat-card">
-                        <i class="fas fa-ruler-vertical"></i>
-                        <span>Altura (m)</span>
-                        <strong id="stat-height">--</strong>
-                    </div>
-                    <div class="stat-card">
-                        <i class="fas fa-calculator"></i>
-                        <span>IMC</span>
-                        <strong id="stat-imc">--</strong>
-                    </div>
-                    <div class="stat-card">
-                        <i class="fas fa-dumbbell"></i>
-                        <span>Treinos Salvos</span>
-                        <strong id="stat-workouts">0</strong>
-                    </div>
-                </div>
-
-                <div class="profile-actions-section">
-                    <h4>Atualizar Medidas</h4>
-                    <form id="update-stats-form" class="inline-form">
-                        <div class="input-group-inline">
-                            <input type="number" id="update-weight" placeholder="Peso (kg)" step="0.1" required>
-                            <input type="number" id="update-height" placeholder="Altura (m)" step="0.01" required>
-                        </div>
-                        <button type="submit" class="action-btn small-btn">Salvar Dados</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal do Painel Administrativo -->
-    <div id="admin-modal" class="modal-overlay" style="display: none;">
-        <div class="modal-content admin-modal-content">
-            <span class="close-modal-btn" id="close-admin-btn">&times;</span>
-            <h3>Painel de Administração 🛡️</h3>
-            <p>Gerenciamento de Usuários Cadastrados</p>
-            
-            <!-- Gráfico de Atividade -->
-            <div class="admin-chart-container">
-                <canvas id="adminWorkoutChart"></canvas>
-            </div>
-
-            <div class="admin-table-container">
-                <table class="user-list-table">
-                    <thead>
-                        <tr>
-                            <th>Foto</th>
-                            <th>Nome</th>
-                            <th>Email</th>
-                            <th>Idade</th>
-                            <th>Treinos</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody id="admin-users-list">
-                        <!-- Lista gerada via JS -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal de Treinos do Usuário (Admin) -->
-    <div id="admin-user-workouts-modal" class="modal-overlay" style="display: none;">
-        <div class="modal-content admin-workouts-content">
-            <span class="close-modal-btn" id="close-admin-workouts-btn">&times;</span>
-            <h3 id="admin-workouts-title">Treinos do Usuário</h3>
-            <div id="admin-workouts-list" class="saved-workouts-list">
-                <!-- Lista gerada via JS -->
-            </div>
-        </div>
-    </div>
 </body>
 </html>

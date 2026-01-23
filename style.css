@@ -1,5 +1,7 @@
+/* Importação de Fontes Externas */
 @import url('https://fonts.googleapis.com/css2?family=BBH+Sans+Bartle&family=Russo+One&family=Science+Gothic:wght@100..900&display=swap');
 
+/* Variáveis Globais (Cores e Sombras) */
 :root {
     --primary-color: #e63946;
     --text-color: white;
@@ -9,6 +11,12 @@
     --shadow-light: 1px 1px 3px rgba(0, 0, 0, 0.315);
 }
 
+/* Configuração Geral do HTML */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Estilos do Corpo da Página (Fundo, Fonte Padrão) */
 body {
     /* Propriedade 'background' abreviada para mais concisão */
     font-family: 'Science Gothic', sans-serif; /* Define a fonte padrão para todo o site */
@@ -22,13 +30,16 @@ body {
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+    overflow-x: hidden; /* Previne rolagem horizontal na página inteira */
 }
 
+/* Container Principal */
 .container {
     text-align: center; /* Centraliza todo o conteúdo dentro do container */
-    overflow-x: hidden; /* Evita rolagem horizontal indesejada em mobile */
+    /* overflow-x: hidden; Removido para permitir que position: sticky funcione */
 }
 
+/* Estilos do Logo e Animações */
 .header-logo {
     width: 650px;
     max-width: 95%; /* Garante responsividade em telas menores */
@@ -47,6 +58,7 @@ body {
     filter: drop-shadow(0 25px 30px rgba(0, 0, 0, 0.8));
 }
 
+/* Keyframes para animações do Logo */
 @keyframes pulseLogo {
     0%, 100% { transform: scale(1); filter: drop-shadow(0 15px 15px rgba(0, 0, 0, 0.6)); }
     50% { transform: scale(1.05); filter: drop-shadow(0 20px 25px rgba(0, 0, 0, 0.5)); }
@@ -65,6 +77,64 @@ body {
     gap: 20px;
 }
 
+/* --- Barra de Navegação --- */
+.main-nav {
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.2); /* Mais transparente */
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    margin-bottom: 5px;
+}
+
+.main-nav ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin: 0;
+    padding: 15px;
+    background: none; /* Remove fundo padrão de listas */
+    box-shadow: none;
+}
+
+.main-nav a {
+    position: relative; /* Necessário para o sublinhado animado */
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: color 0.3s ease;
+}
+
+.main-nav a:hover {
+    color: var(--primary-color);
+    text-shadow: 0 0 10px var(--primary-color);
+}
+
+/* Efeito de sublinhado animado */
+.main-nav a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease-in-out;
+    box-shadow: 0 0 5px var(--primary-color);
+}
+
+.main-nav a:hover::after {
+    width: 100%;
+}
+
+/* Anúncios no Rodapé */
 .footer-ad {
     min-width: 250px;
     margin-bottom: 30px;
@@ -160,6 +230,7 @@ ul {
     font-size: 2.5rem;
    }
 
+   /* Seção de Dados do Usuário (IMC, Limitações) */
    .user-data-section {
     display: flex;
     justify-content: space-around;
@@ -211,6 +282,7 @@ ul {
     min-height: 21px; /* Garante que o layout não pule antes do primeiro cálculo */
    }
 
+   /* Controles e Botões de Nível */
    .controls, .control-group {
     display: flex;
     justify-content: center;
@@ -315,6 +387,7 @@ ul {
         border-color: var(--primary-color);
     }
 
+   /* Botões de Ação (Imprimir, PDF) */
    .action-buttons-container {
     display: flex; /* Controlado por JS, mas definimos o padrão */
     justify-content: center;
@@ -366,6 +439,7 @@ ul {
     padding: 20px;
    }
 
+   /* Abas de Navegação dos Dias de Treino */
    .workout-tabs {
     display: flex;
     gap: 10px;
@@ -648,6 +722,7 @@ ul {
        100% { opacity: 1; transform: scale(1); }
    }
 
+/* Configurações de Impressão */
 @media print {
     /* Esconde tudo que não é a ficha de treino */
     body > .container > *:not(.weekly-plan-generator),
@@ -742,6 +817,16 @@ ul {
     /* Aumenta o tamanho das imagens das seções (Sobre Mim, Serviços) no celular */
     .info-image {
         max-width: 100%; /* Remove o limite de 300px para ocupar a largura da tela */
+    }
+
+    /* Ajustes da navegação para mobile */
+    .main-nav ul {
+        flex-wrap: wrap;
+        gap: 15px;
+        padding: 10px;
+    }
+    .main-nav a {
+        font-size: 0.9rem;
     }
 }
 
