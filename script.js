@@ -11,13 +11,6 @@ class WorkoutGenerator {
         this.exerciseData = null;
         this.lastImc = 0;
         this.currentPlan = {}; // Armazena o plano de treino atual
-        this.weeklySplit = {
-            "Segunda": { groups: ["costas", "biceps"], name: "Costas & Bíceps ✈️" },
-            "Terça": { groups: ["peito", "triceps", "ombros"], name: "Peito, Tríceps & Ombros 💪" },
-            "Quarta": { groups: ["pernas"], name: "Pernas 🦵" },
-            "Quinta": { groups: ["costas", "biceps"], name: "Costas & Bíceps ✈️" },
-            "Sexta": { groups: ["peito", "triceps", "ombros"], name: "Peito, Tríceps & Ombros 💪" }
-        };
     }
 
     /**
@@ -27,9 +20,6 @@ class WorkoutGenerator {
         this.dom.heightInput = document.getElementById('height');
         this.dom.weightInput = document.getElementById('weight');
         this.dom.imcResultEl = document.getElementById('imc-result');
-        this.dom.levelButtons = document.querySelectorAll('.level-btn');
-        this.dom.limitationsCheckboxes = document.querySelectorAll('.limitations input[type="checkbox"]');
-        this.dom.loaderEl = document.getElementById('loader');
         this.dom.actionButtonsContainer = document.getElementById('action-buttons');
         this.dom.printBtn = document.getElementById('print-btn');
         this.dom.pdfBtn = document.getElementById('pdf-btn');
@@ -67,13 +57,6 @@ class WorkoutGenerator {
         this.dom.weightInput.addEventListener('input', () => this.calculateAndShowIMC());
         this.dom.pdfBtn.addEventListener('click', () => this.handleDownloadPdf());
         this.dom.printBtn.addEventListener('click', () => window.print());
-
-        this.dom.levelButtons.forEach(button => {
-            button.addEventListener('click', (e) => {
-                const level = e.target.dataset.level;
-                this.handleGeneratePlan(level);
-            });
-        });
 
         // Adiciona um listener de evento delegado para os botões de troca
         this.dom.workoutContentContainer.addEventListener('click', (e) => {
@@ -133,167 +116,6 @@ class WorkoutGenerator {
             this.dom.imcResultEl.innerHTML = '';
             this.lastImc = 0;
         }
-    }
-
-    async handleGeneratePlan(level) {
-        if (!this.exerciseData) return;
-
-        // Configuração inicial de carregamento (Skeleton)
-        this.dom.actionButtonsContainer.style.display = 'none';
-        this.dom.loaderEl.style.display = 'none'; // Garante que o spinner antigo não apareça
-        
-        // Desabilita botões e marca o selecionado como ativo (loading state)
-        this.dom.levelButtons.forEach(button => {
-            button.disabled = true;
-            if (button.dataset.level === level) button.classList.add('active');
-            else button.classList.remove('active');
-        });
-
-        // Renderiza o Skeleton Screen
-        this.renderSkeletonScreen();
-
-        // Simula tempo de "processamento"
-        await new Promise(resolve => setTimeout(resolve, 500));
-
-        const limitations = Array.from(this.dom.limitationsCheckboxes)
-            .filter(cb => cb.checked)
-            .map(cb => cb.value);
-
-        this.currentPlan = this.createDynamicWorkoutPlan(level, limitations);
-        const plan = this.currentPlan;
-        this.renderWorkoutPlanWithTabs(plan);
-        
-        // Salva o treino automaticamente se houver usuário logado
-        this.saveCurrentWorkout(plan, level);
-
-        // Restaura estado dos botões e mostra ações
-        this.dom.levelButtons.forEach(btn => {
-            btn.disabled = false;
-            btn.classList.remove('active');
-            // Mantém o selecionado visualmente
-            if (btn.dataset.level === level) btn.classList.add('selected');
-            else btn.classList.remove('selected');
-        });
-        
-        this.dom.actionButtonsContainer.style.display = 'flex';
-    }
-
-    renderSkeletonScreen() {
-        this.dom.workoutTabsContainer.innerHTML = '';
-        const days = Object.keys(this.weeklySplit);
-        
-        // Renderiza abas falsas (visuais)
-        days.forEach((day, index) => {
-            const tabBtn = document.createElement('button');
-            tabBtn.className = `tab-btn ${index === 0 ? 'active' : ''}`;
-            tabBtn.textContent = day;
-            this.dom.workoutTabsContainer.appendChild(tabBtn);
-        });
-
-        this.dom.workoutContentContainer.innerHTML = '';
-        
-        // Cria estrutura do dia ativo com cards skeleton
-        const skeletonDay = document.createElement('div');
-        skeletonDay.className = 'workout-day-content active';
-        
-        let cardsHTML = '';
-        // Gera 3 cards de exemplo para o efeito
-        for (let i = 0; i < 3; i++) {
-            cardsHTML += `
-                <li class="exercise-item skeleton-card">
-                    <div class="exercise-header">
-                        <div class="skeleton skeleton-title"></div>
-                    </div>
-                    <div class="exercise-body">
-                        <div class="skeleton skeleton-text"></div>
-                        <div class="skeleton skeleton-text short"></div>
-                        <div class="skeleton skeleton-text" style="margin-top: auto; height: 8px;"></div>
-                    </div>
-                </li>
-            `;
-        }
-
-        skeletonDay.innerHTML = `
-            <h4><div class="skeleton skeleton-header"></div></h4>
-            <ul class="exercise-list">${cardsHTML}</ul>
-        `;
-        
-        this.dom.workoutContentContainer.appendChild(skeletonDay);
-        this.dom.workoutPlanContainer.style.display = 'block';
-    }
-
-    saveCurrentWorkout(plan, level) {
-        // Verifica se há usuário logado na sessão (agora localStorage)
-        const sessionUser = localStorage.getItem('samuel_active_session');
-        if (!sessionUser) return;
-
-        const user = JSON.parse(sessionUser);
-        const workoutData = {
-            id: Date.now(),
-            date: new Date().toLocaleDateString('pt-BR'),
-            level: level,
-            plan: plan
-        };
-
-        // Recupera lista existente ou cria nova
-        const userKey = `samuel_saved_workouts_${user.email}`;
-        const savedWorkouts = JSON.parse(localStorage.getItem(userKey) || '[]');
-        
-        // Adiciona ao início e limita a 10 treinos
-        savedWorkouts.unshift(workoutData);
-        if (savedWorkouts.length > 10) savedWorkouts.pop();
-
-        localStorage.setItem(userKey, JSON.stringify(savedWorkouts));
-        // Opcional: Notificar o usuário visualmente
-    }
-
-    createDynamicWorkoutPlan(level, limitations) {
-        const finalPlan = {};
-        const exercisesPerGroup = { iniciante: 2, intermediario: 2, avancado: 3 };
-
-        for (const day in this.weeklySplit) {
-            const dayInfo = this.weeklySplit[day];
-            finalPlan[day] = { name: dayInfo.name, exercises: [] };
-
-            dayInfo.groups.forEach(group => {
-                const exercises = this.getDynamicExercises(group, level, limitations, exercisesPerGroup[level]);
-                finalPlan[day].exercises.push(...exercises);
-            });
-
-            // Adiciona cardio se o IMC for >= 25
-            if (this.lastImc >= 25) {
-                const cardio = this.getDynamicExercises('cardio', level, limitations, 1);
-                if (cardio.length > 0) finalPlan[day].exercises.push({ ...cardio[0], isCardio: true });
-            }
-        }
-        return finalPlan;
-    }
-
-    getDynamicExercises(group, level, limitations, count) {
-        const levels = ['iniciante', 'intermediario', 'avancado'];
-        const allowedLevels = levels.slice(0, levels.indexOf(level) + 1);
-
-        const filtered = (this.exerciseData[group] || [])
-            .filter(ex => {
-                const isLevelOk = allowedLevels.includes(ex.level);
-                const hasLimitation = limitations.some(lim => ex.tags.includes(`impacto_${lim}`));
-                return isLevelOk && !hasLimitation;
-            });
-
-        // Lógica para variar séries e repetições
-        const getSetsAndReps = () => {
-            const setsOptions = { iniciante: [3], intermediario: [3, 4], avancado: [4, 5] };
-            const repsOptions = { iniciante: "12-15", intermediario: "8-12", avancado: "6-10" };
-            
-            const sets = setsOptions[level][Math.floor(Math.random() * setsOptions[level].length)];
-            return `${sets} séries de ${repsOptions[level]} repetições`;
-        };
-
-        return filtered.sort(() => 0.5 - Math.random()).slice(0, count).map(ex => ({
-            ...ex,
-            group: group, // Adiciona o grupo ao objeto do exercício
-            details: ex.isCardio ? "15-20 minutos" : getSetsAndReps()
-        }));
     }
 
     renderWorkoutPlanWithTabs(plan) {
@@ -394,9 +216,8 @@ class WorkoutGenerator {
         // Encontra os exercícios já usados neste dia para evitar repetição
         const usedExercises = this.currentPlan[day].exercises.map(ex => ex.name);
         
-        // Evita trocar por exercícios que causem limitações selecionadas
-        const limitations = Array.from(this.dom.limitationsCheckboxes)
-            .filter(cb => cb.checked).map(cb => `impacto_${cb.value}`);
+        // Limitações removidas da UI, array vazio
+        const limitations = [];
 
         // Filtra para encontrar um novo exercício
         const potentialReplacements = (this.exerciseData[group] || [])
@@ -484,7 +305,10 @@ class WorkoutGenerator {
 
     // Método para carregar um treino salvo (chamado pelo AuthManager)
     loadSavedPlan(plan) {
+        this.currentPlan = plan; // Atualiza o plano atual para permitir trocas
         this.renderWorkoutPlanWithTabs(plan);
+        // Mostra os botões de ação (PDF/Print)
+        this.dom.actionButtonsContainer.style.display = 'flex';
         this.dom.workoutPlanContainer.scrollIntoView({ behavior: 'smooth' });
     }
 }
@@ -533,7 +357,23 @@ class AuthManager {
         this.dom.userMenuDropdown = document.getElementById('user-menu-dropdown');
         this.dom.userProfilePic = document.getElementById('user-profile-pic');
         this.dom.displayUsername = document.getElementById('display-username');
+        this.dom.menuProfile = document.getElementById('menu-profile');
         this.dom.logoutBtn = document.getElementById('menu-logout'); // Botão agora está no menu
+        
+        // Profile Modal Elements
+        this.dom.profileModal = document.getElementById('profile-modal');
+        this.dom.closeProfileBtn = document.getElementById('close-profile-btn');
+        this.dom.profileName = document.getElementById('profile-name');
+        this.dom.profileEmail = document.getElementById('profile-email');
+        this.dom.profileAge = document.getElementById('profile-age');
+        this.dom.profilePicModal = document.getElementById('profile-modal-pic');
+        this.dom.statWeight = document.getElementById('stat-weight');
+        this.dom.statHeight = document.getElementById('stat-height');
+        this.dom.statImc = document.getElementById('stat-imc');
+        this.dom.statWorkouts = document.getElementById('stat-workouts');
+        this.dom.updateStatsForm = document.getElementById('update-stats-form');
+        this.dom.updateWeightInput = document.getElementById('update-weight');
+        this.dom.updateHeightInput = document.getElementById('update-height');
         
         // Menu Itens
         this.dom.menuMyWorkouts = document.getElementById('menu-my-workouts');
@@ -770,10 +610,12 @@ class AuthManager {
         if (storedUser) {
             this.currentUser = JSON.parse(storedUser);
             this.updateUI(true);
+            // Garante que o modal esteja oculto se o usuário já estiver logado
+            if (this.dom.authModal) this.dom.authModal.style.display = 'none';
         } else {
             this.updateUI(false);
             // Força o bloqueio da tela se não houver sessão
-            this.showLockScreen();
+            // this.showLockScreen(); // Desabilitado temporariamente para corrigir a tela preta
         }
     }
 
