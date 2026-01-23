@@ -738,6 +738,11 @@ ul {
     }
     .info-text { text-align: center; }
     .info-text p, .info-text ul { text-align: center; }
+    
+    /* Aumenta o tamanho das imagens das seções (Sobre Mim, Serviços) no celular */
+    .info-image {
+        max-width: 100%; /* Remove o limite de 300px para ocupar a largura da tela */
+    }
 }
 
 /* --- Seção de Resultados (Antes e Depois) --- */
@@ -1024,10 +1029,10 @@ ul {
 }
 
 .modal-image {
-    margin: a4to;
+    margin: auto;
     display: block;
-    max-width: 90%;
-    max-height: 85%;
+    max-width: 98%;
+    max-height: 95%;
     animation: zoomIn 0.3s ease-out;
 }
 
@@ -1723,7 +1728,7 @@ body.body-locked .container {
 
     /* Cards da galeria responsivos */
     .result-card {
-        width: 85vw;
+        width: 95vw; /* Aumenta a largura do card para 95% da tela */
         height: auto;
         aspect-ratio: 340/350;
     }
@@ -1750,6 +1755,13 @@ body.body-locked .container {
     /* Melhor performance de scroll em mobile */
     body {
         background-attachment: scroll;
+    }
+
+    /* Aumenta a visualização da área de upload */
+    .upload-box {
+        width: 100%;
+        max-width: 300px;
+        height: 300px;
     }
 }
 
