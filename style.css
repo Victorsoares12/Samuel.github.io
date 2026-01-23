@@ -74,7 +74,8 @@ body {
     justify-content: center;
     align-items: center;
     flex-wrap: wrap; /* Permite quebrar linha em celular */
-    gap: 20px;
+    gap: 10px;
+
 }
 
 /* --- Barra de Navegação --- */
@@ -167,7 +168,7 @@ p, ul {
 
 ul {
     list-style-type: none; /* Remove os marcadores (bolinhas) da lista */
-   }
+}
 
    /* --- Estilos para Seções de Informação (Sobre Mim, Serviços) --- */
    .info-section {
@@ -543,105 +544,6 @@ ul {
     }
 }
 
-/* --- Estilos do Rodapé (Footer) --- */
-
-/* --- Seção de Agendamentos Inteligentes --- */
-.scheduling-section {
-    margin-top: 60px;
-    padding: 40px;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-radius: 15px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    text-align: center;
-}
-
-.scheduling-subtitle {
-    font-size: 1.1rem !important;
-    color: #ccc !important;
-    background: none !important;
-    padding: 0 !important;
-    margin-top: 0;
-    margin-bottom: 30px;
-    text-shadow: none !important;
-}
-
-.scheduling-content {
-    display: flex;
-    gap: 30px;
-    text-align: left;
-    flex-wrap: wrap;
-}
-
-.scheduling-features, .scheduling-simulation {
-    flex: 1;
-    min-width: 300px;
-}
-
-.scheduling-features ul {
-    list-style: none;
-    padding: 0;
-    background: none;
-}
-
-.scheduling-features li {
-    display: flex;
-    align-items: flex-start;
-    gap: 15px;
-    font-size: 1.1rem;
-    margin-bottom: 15px;
-}
-.scheduling-features li i {
-    color: var(--primary-color);
-    font-size: 1.3rem;
-    margin-top: 4px;
-}
-
-.scheduling-simulation {
-    background-color: rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    border-radius: 8px;
-}
-
-.training-type-selector {
-    margin-bottom: 20px;
-}
-
-.training-type-btn {
-    padding: 8px 15px;
-    border: 2px solid #777;
-    background-color: transparent;
-    color: #ccc;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
-    transition: all 0.3s;
-    font-weight: bold;
-    border-radius: 8px;
-    margin: 0 5px;
-}
-
-.training-type-btn:hover:not(.active) {
-    background-color: rgba(255, 255, 255, 0.1);
-    border-color: #aaa;
-}
-
-.training-type-btn.active {
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
-    color: white;
-}
-
-.simulation-details {
-    display: none;
-    font-size: 1rem;
-    color: #ddd;
-    animation: fadeIn 0.5s;
-}
-
-.simulation-details.active {
-    display: block;
-}
 
 .cta-button {
     display: inline-block;
@@ -657,7 +559,7 @@ ul {
 
 .cta-button:hover {
     transform: scale(1.05);
-    background-color: #d62828;
+    background-color: #34e96b;
 }
 
 .cta-button.transparent {
