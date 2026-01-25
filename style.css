@@ -213,10 +213,15 @@ ul {
   
 /* --- Media Query para Responsividade --- */
 @media (max-width: 768px) {
-    .info-section, .info-section.reverse {
+    .info-section {
         flex-direction: column; /* Empilha imagem e texto em telas pequenas */
         text-align: center;
     }
+
+    .info-section.reverse {
+        flex-direction: column-reverse; /* Garante que a imagem fique no topo na seção de serviços */
+    }
+
     .info-text { text-align: center; }
     .info-text p, .info-text ul { text-align: center; }
     
