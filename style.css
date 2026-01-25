@@ -33,12 +33,6 @@ body {
     overflow-x: hidden; /* Previne rolagem horizontal na página inteira */
 }
 
-/* Container Principal */
-.container {
-    text-align: center; /* Centraliza todo o conteúdo dentro do container */
-    /* overflow-x: hidden; Removido para permitir que position: sticky funcione */
-}
-
 /* Estilos do Logo e Animações */
 .header-logo {
     width: 650px;
@@ -142,7 +136,7 @@ body {
 }
 
 /* Agrupando seletores de títulos para reduzir repetição */
-.title, h1, h2, h3 {
+h1, h2, h3 {
     color: var(--text-color);
     text-shadow: var(--shadow-strong);
     font-style: oblique;
@@ -202,7 +196,7 @@ ul {
    /* Efeito de hover moderno para as imagens */
    .info-image img:hover {
     transform: scale(1.03); /* Aumenta levemente a imagem */
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7); /* Torna a sombra mais pronunciada */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
    }
 
    .info-text {
@@ -562,10 +556,10 @@ ul {
     background-color: #34e96b;
 }
 
+/* O botão transparente herda as novas transições e é ajustado */
 .cta-button.transparent {
     background-color: transparent;
     border: 2px solid var(--primary-color);
-    box-shadow: 0 0 10px rgba(230, 57, 70, 0.3);
 }
 
 footer {
@@ -603,341 +597,6 @@ footer p {
     padding: 0;
 }
 
-/* --- Estilos para o Sistema de Autenticação --- */
-.top-auth-bar {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding: 10px 20px;
-    gap: 15px;
-}
-
-
-#user-logged-area {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 1.1rem;
-    position: relative; /* Para posicionar o dropdown */
-}
-
-.user-menu-trigger {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    padding: 5px 10px;
-    border-radius: 10px;
-    transition: background-color 0.3s;
-    text-align: center;
-}
-.user-menu-trigger:hover {
-    background-color: rgba(255,255,255,0.1);
-}
-
-#user-profile-pic {
-    width: 55px;
-    height: 55px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid var(--primary-color);
-    margin-right: 0;
-    margin-bottom: 5px;
-}
-
-/* Menu Dropdown do Usuário */
-.user-menu-dropdown {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background-color: #222;
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 8px;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    min-width: 200px;
-    z-index: 1001;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-}
-
-.user-menu-dropdown button,
-.user-menu-dropdown .menu-item-label {
-    background: none;
-    border: none;
-    color: #ccc;
-    padding: 10px;
-    text-align: left;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background 0.3s;
-    font-size: 0.95rem;
-    display: block;
-}
-
-.user-menu-dropdown button:hover,
-.user-menu-dropdown .menu-item-label:hover {
-    background-color: rgba(255,255,255,0.1);
-    color: white;
-}
-
-.text-btn {
-    background: none;
-    border: none;
-    color: #aaa;
-    cursor: pointer;
-    text-decoration: underline;
-    font-size: 0.9rem;
-}
-
-
-.text-btn:hover { color: var(--primary-color); }
-
-.auth-trigger-btn {
-    background-color: transparent;
-    border: 1px solid var(--primary-color);
-    color: var(--primary-color);
-    padding: 8px 15px;
-    border-radius: 20px;
-    transition: all 0.3s;
-}
-.auth-trigger-btn:hover {
-    background-color: var(--primary-color);
-    color: white;
-}
-
-.auth-modal-content {
-    max-width: 900px;
-    width: 95%;
-    background: rgba(15, 15, 15, 0.95);
-    border: 1px solid #333;
-    box-shadow: 0 0 50px rgba(0, 0, 0, 0.9);
-    padding: 0;
-    border-radius: 15px;
-    display: flex;
-    overflow: hidden;
-}
-
-.auth-image-side {
-    flex: 1;
-    background: url('z-img/academia.jpg') no-repeat center center;
-    background-size: cover;
-    position: relative;
-    min-height: 500px;
-}
-
-.auth-image-side::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to bottom right, rgba(230, 57, 70, 0.3), rgba(0,0,0,0.6));
-}
-
-.auth-form-side {
-    flex: 1;
-    padding: 40px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    position: relative;
-}
-
-.auth-branding {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.auth-branding img {
-    width: 100px;
-    margin-bottom: 15px;
-    filter: drop-shadow(0 0 5px rgba(230, 57, 70, 0.5));
-}
-
-.auth-branding h2 {
-    font-size: 1.8rem;
-    margin: 0 0 5px 0;
-    color: white;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.auth-branding p {
-    font-size: 0.9rem;
-    color: #888;
-    background: none;
-    padding: 0;
-    margin: 0;
-}
-
-/* Feedback Visual (Mensagens) */
-.auth-feedback {
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 15px;
-    font-size: 0.9rem;
-    text-align: center;
-    animation: fadeIn 0.3s;
-}
-.auth-feedback.error {
-    background-color: rgba(231, 76, 60, 0.2);
-    border: 1px solid #e74c3c;
-    color: #ffadad;
-}
-.auth-feedback.success {
-    background-color: rgba(46, 204, 113, 0.2);
-    border: 1px solid #2ecc71;
-    color: #a8f0c6;
-}
-
-/* Opções do Formulário (Lembrar-me + Esqueci Senha) */
-.form-options {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 5px;
-    font-size: 0.9rem;
-    color: #ccc;
-}
-.checkbox-label { display: flex; align-items: center; gap: 5px; cursor: pointer; }
-
-.auth-tabs-header {
-    display: flex;
-    border-bottom: 2px solid #222;
-    margin-bottom: 20px;
-}
-
-.auth-tab-btn {
-    flex: 1;
-    background: none;
-    border: none;
-    padding: 10px;
-    color: #555;
-    font-size: 1rem;
-    text-transform: uppercase;
-    font-weight: bold;
-    cursor: pointer;
-    border-bottom: 2px solid transparent;
-    transition: all 0.3s;
-}
-
-.auth-tab-btn.active {
-    color: white;
-    border-bottom-color: var(--primary-color);
-}
-
-.auth-form {
-    display: none;
-    flex-direction: column;
-    gap: 15px;
-}
-.auth-form.active { display: flex; }
-
-.input-group-vertical {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    text-align: left;
-}
-.input-group-vertical label { font-size: 0.9rem; color: #ccc; }
-
-.input-group-vertical input {
-    background-color: #0a0a0a;
-    border: 1px solid #333;
-    color: white;
-    padding: 12px;
-    border-radius: 6px;
-    transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-.input-group-vertical input:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 10px rgba(230, 57, 70, 0.2);
-    outline: none;
-}
-
-.form-row { display: flex; gap: 15px; }
-.flex-grow { flex-grow: 1; }
-.full-width { width: 100%; margin-top: 10px; }
-
-@media (max-width: 768px) {
-    .top-auth-bar { justify-content: center; margin-bottom: 10px; }
-    
-    .auth-modal-content {
-        flex-direction: column;
-        max-width: 450px;
-    }
-    .auth-image-side {
-        display: none;
-    }
-    .auth-form-side {
-        padding: 30px;
-    }
-}
-
-
-
-.skeleton-card {
-    pointer-events: none;
-    min-height: 220px; /* Altura aproximada de um card real */
-}
-
-.skeleton-title {
-    height: 24px;
-    width: 60%;
-    border-radius: 4px;
-}
-
-.skeleton-text {
-    height: 16px;
-    width: 100%;
-    margin-bottom: 12px;
-    border-radius: 4px;
-}
-
-.skeleton-text.short {
-    width: 40%;
-}
-
-.skeleton-header {
-    height: 32px;
-    width: 250px;
-    display: inline-block;
-    vertical-align: middle;
-}
-
-/* --- Otimizações para Dispositivos Móveis (Android/iOS) --- */
-@media (max-width: 768px) {
-    /* Ajuste de layout para tablets e celulares grandes */
-    .user-data-section {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .imc-calculator, .limitations {
-        max-width: 100%;
-    }
-
-    .scheduling-content {
-        flex-direction: column;
-    }
-    
-    /* Ajuste da barra de topo */
-    .top-auth-bar {
-        flex-direction: column;
-        gap: 10px;
-    }
-    
-    #user-logged-area {
-        width: 100%;
-        justify-content: center;
-    }
-}
-
 @media (max-width: 480px) {
     /* Ajustes finos para celulares */
     h1 { font-size: 1.5rem; }
@@ -952,7 +611,6 @@ footer p {
     /* Reduz padding para ganhar espaço */
     .weekly-plan-generator, 
     .results-section, 
-    .scheduling-section,
     .submission-area {
         padding: 15px;
         margin-top: 30px;
@@ -982,22 +640,11 @@ footer p {
         overflow-y: auto;
     }
     
-    /* Menu dropdown centralizado em mobile */
-    .user-menu-dropdown {
-        right: 50%;
-        transform: translateX(50%);
-        width: 90vw;
-        text-align: center;
-    }
-    .user-menu-dropdown button, .user-menu-dropdown .menu-item-label {
-        text-align: center;
-    }
-    
     /* Melhor performance de scroll em mobile */
     body {
         background-attachment: scroll;
     }
-.delete-workout-btn:hover { background-color: #e74c3c; }
+}
 
 /* --- Botões Flutuantes (WhatsApp e Instagram) --- */
 @keyframes pulse-whatsapp {
@@ -1059,41 +706,6 @@ footer p {
     animation: pulse-instagram 2s infinite;
 }
 .instagram-button-injected:hover {
-    background-color: #C135A1; 
-    transform: scale(1.1);
-    animation: none;
-}
-.instagram-button-injected .fa-instagram {
-    font-size: 24px;
-}instagram-button-injected:hover {
-    background-color: #C135A1; 
-    transform: scale(1.1);
-    animation: none;
-}
-.instagram-button-injected .fa-instagram {
-    font-size: 24px;
-}instagram-button-injected:hover {
-    background-color: #C135A1; 
-    transform: scale(1.1);
-    animation: none;
-}
-.instagram-button-injected .fa-instagram {
-    font-size: 24px;
-}instagram-button-injected:hover {
-    background-color: #C135A1; 
-    transform: scale(1.1);
-    animation: none;
-}
-.instagram-button-injected .fa-instagram {
-    font-size: 24px;
-}instagram-button-injected:hover {
-    background-color: #C135A1; 
-    transform: scale(1.1);
-    animation: none;
-}
-.instagram-button-injected .fa-instagram {
-    font-size: 24px;
-}instagram-button-injected:hover {
     background-color: #C135A1; 
     transform: scale(1.1);
     animation: none;
