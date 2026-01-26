@@ -67,7 +67,8 @@
             </div>
             <div class="info-text">
                 <h3>Mfit Personal</h3>
-                <p>O aluno da MFIT Personal terá acesso a um aplicativo completo para treinar, com visualização de treinos personalizados, mais de 1.800 vídeos demonstrativos de exercícios, registro de cargas/séries, calendário de frequência, gráficos de evolução física e, opcionalmente, pagamento via app. É uma experiência profissional que substitui planilhas físicas.</p>
+                <p>O aluno da MFIT Personal terá acesso a um aplicativo completo para treinar, 
+                    com visualização de treinos personalizados, mais de 1.800 vídeos demonstrativos.</p>
                 <!-- Substitua o # pelo link que você deseja (ex: link do app ou seu perfil) -->
                 <a href="https://l.instagram.com/?u=https%3A%2F%2Fclient.mfitpersonal.com.br%2Fout%2Fsignup-link%2FNDIzOTE1%3Futm_source%3Dig%26utm_medium%3Dsocial%26utm_content%3Dlink_in_bio%26fbclid%3DPAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnJH-gdkyexinjYv-a2sENHW_G7ij7Qon4ZCeiqu2FNaWybeWBhvZcVjGw3MI_aem_72ZQImrZmNMgOaB5rPV09A&e=AT04vLmu3iQSz8dzyxND4WvnRUvgmqg0SfMvzj6YVN7fqFkts6i3DzVb_iUi4fAWmNy0kT_l9GpjCBLt_dPcsPVRPAORdBDMZ3mTzkGJdo0XIGsRBREwfPoajw" class="cta-button transparent" target="_blank">Acessar Mfit Personal</a>
             </div>
@@ -82,8 +83,50 @@
                 <button class="gallery-nav-btn prev-btn" aria-label="Anterior"><i class="fas fa-chevron-left"></i></button>
                 <div class="gallery-viewport">
                     <div class="gallery-track">
-                        <!-- Cards de Resultado (serão duplicados via JS para o loop) -->
-                        <!-- Adicione mais cards aqui -->
+                        <!-- Card Exemplo 1 -->
+                        <div class="result-card">
+                            <div class="comparison-container">
+                                <div class="comparison-item"><span class="comparison-label">Antes</span><img src="z-img/samuel.png" alt="Antes"></div>
+                                <div class="comparison-item"><span class="comparison-label">Depois</span><img src="z-img/samuel.png" alt="Depois"></div>
+                            </div>
+                            <div class="result-info"><h4>Maria Silva</h4><p>Perdeu 8kg em 3 meses</p></div>
+                            <div class="card-actions">
+                                <button class="delete-btn" title="Excluir"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </div>
+                        <!-- Card Exemplo 2 -->
+                        <div class="result-card">
+                            <div class="comparison-container">
+                                <div class="comparison-item"><span class="comparison-label">Antes</span><img src="z-img/samuel.png" alt="Antes"></div>
+                                <div class="comparison-item"><span class="comparison-label">Depois</span><img src="z-img/samuel.png" alt="Depois"></div>
+                            </div>
+                            <div class="result-info"><h4>João Souza</h4><p>Ganho de 5kg de massa</p></div>
+                            <div class="card-actions">
+                                <button class="delete-btn" title="Excluir"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </div>
+                        <!-- Card Exemplo 3 -->
+                        <div class="result-card">
+                            <div class="comparison-container">
+                                <div class="comparison-item"><span class="comparison-label">Antes</span><img src="z-img/samuel.png" alt="Antes"></div>
+                                <div class="comparison-item"><span class="comparison-label">Depois</span><img src="z-img/samuel.png" alt="Depois"></div>
+                            </div>
+                            <div class="result-info"><h4>Ana Costa</h4><p>Definição muscular</p></div>
+                            <div class="card-actions">
+                                <button class="delete-btn" title="Excluir"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </div>
+                        <!-- Card Exemplo 4 -->
+                        <div class="result-card">
+                            <div class="comparison-container">
+                                <div class="comparison-item"><span class="comparison-label">Antes</span><img src="z-img/samuel.png" alt="Antes"></div>
+                                <div class="comparison-item"><span class="comparison-label">Depois</span><img src="z-img/samuel.png" alt="Depois"></div>
+                            </div>
+                            <div class="result-info"><h4>Pedro Santos</h4><p>Perdeu 12kg</p></div>
+                            <div class="card-actions">
+                                <button class="delete-btn" title="Excluir"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <button class="gallery-nav-btn next-btn" aria-label="Próximo"><i class="fas fa-chevron-right"></i></button>
@@ -148,7 +191,7 @@
             <p>&copy; 2026 Desenvolvedor Victor Soares.</p>
         </footer>
     <!-- Botões Flutuantes (Estáticos para Performance) -->
-    <a href="https://wa.link/9yrsy0" target="_blank" class="whatsapp-button-injected" aria-label="WhatsApp">
+    <a href="https://wa.me/5585989572830" target="_blank" class="whatsapp-button-injected" aria-label="WhatsApp">
         <i class="fab fa-whatsapp"></i>
     </a>
     <a href="https://www.instagram.com/treinadorsamuelmaiaa/" target="_blank" class="instagram-button-injected" aria-label="Instagram">
@@ -175,5 +218,155 @@
     })({})
     </script>
 
+    <!-- Script para Funcionalidade da Galeria Antes/Depois -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const uploadAntes = document.getElementById('upload-antes');
+            const uploadDepois = document.getElementById('upload-depois');
+            const previewAntes = document.getElementById('preview-antes');
+            const previewDepois = document.getElementById('preview-depois');
+            const submissionModal = document.getElementById('submission-modal');
+            const publishBtn = document.getElementById('publish-btn');
+            const cancelBtn = document.getElementById('cancel-btn');
+            const galleryTrack = document.querySelector('.gallery-track');
+            const galleryViewport = document.querySelector('.gallery-viewport');
+            
+            let imgAntesData = null;
+            let imgDepoisData = null;
+
+            // Função para ler e mostrar a imagem selecionada
+            function handleFileSelect(input, preview, isAntes) {
+                if (input.files && input.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        preview.src = e.target.result;
+                        if (isAntes) imgAntesData = e.target.result;
+                        else imgDepoisData = e.target.result;
+                        checkUploads();
+                    };
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            if (uploadAntes) uploadAntes.addEventListener('change', function() { handleFileSelect(this, previewAntes, true); });
+            if (uploadDepois) uploadDepois.addEventListener('change', function() { handleFileSelect(this, previewDepois, false); });
+
+            // Abre o modal se ambas as imagens foram carregadas
+            function checkUploads() {
+                if (imgAntesData && imgDepoisData) {
+                    submissionModal.style.display = 'flex';
+                }
+            }
+
+            // Botão Cancelar
+            if (cancelBtn) {
+                cancelBtn.addEventListener('click', function() {
+                    submissionModal.style.display = 'none';
+                    resetForm();
+                });
+            }
+
+            // Botão Publicar
+            if (publishBtn) {
+                publishBtn.addEventListener('click', function() {
+                    const name = document.getElementById('submission-name').value || 'Aluno';
+                    const weightBefore = document.getElementById('submission-before-weight').value;
+                    const weightAfter = document.getElementById('submission-after-weight').value;
+                    
+                    const card = document.createElement('div');
+                    card.className = 'result-card';
+                    
+                    let weightInfo = '';
+                    if (weightBefore && weightAfter) {
+                        weightInfo = `<p>Perdeu ${(weightBefore - weightAfter).toFixed(1)}kg</p>`;
+                    }
+
+                    card.innerHTML = `
+                        <div class="comparison-container">
+                            <div class="comparison-item"><span class="comparison-label">Antes</span><img src="${imgAntesData}"></div>
+                            <div class="comparison-item"><span class="comparison-label">Depois</span><img src="${imgDepoisData}"></div>
+                        </div>
+                        <div class="result-info"><h4>${name}</h4>${weightInfo}</div>
+                        <div class="card-actions">
+                            <button class="delete-btn" title="Excluir"><i class="fas fa-trash"></i></button>
+                        </div>
+                    `;
+                    
+                    galleryTrack.appendChild(card);
+                    submissionModal.style.display = 'none';
+                    resetForm();
+                });
+            }
+
+            function resetForm() {
+                uploadAntes.value = ''; uploadDepois.value = '';
+                previewAntes.src = ''; previewDepois.src = '';
+                imgAntesData = null; imgDepoisData = null;
+                document.getElementById('submission-name').value = '';
+                document.getElementById('submission-before-weight').value = '';
+                document.getElementById('submission-after-weight').value = '';
+            }
+
+            // Funcionalidade para excluir card ao clicar no botão de lixeira
+            galleryTrack.addEventListener('click', function(e) {
+                const deleteBtn = e.target.closest('.delete-btn');
+                if (deleteBtn) {
+                    const card = deleteBtn.closest('.result-card');
+                    if (card && confirm('Tem certeza que deseja excluir este resultado?')) {
+                        card.classList.add('fade-out');
+                        setTimeout(() => {
+                            card.remove();
+                        }, 500);
+                    }
+                }
+            });
+
+            // Navegação da Galeria (Setas)
+            const prevBtn = document.querySelector('.prev-btn');
+            const nextBtn = document.querySelector('.next-btn');
+            if (prevBtn) prevBtn.addEventListener('click', () => galleryViewport.scrollBy({left: -360, behavior: 'smooth'}));
+            if (nextBtn) nextBtn.addEventListener('click', () => galleryViewport.scrollBy({left: 360, behavior: 'smooth'}));
+
+            // Lógica do Carrossel Automático
+            let autoScrollTimeout;
+            
+            function startAutoScroll() {
+                clearTimeout(autoScrollTimeout);
+                // Inicia o ciclo
+                autoScrollTimeout = setTimeout(scrollStep, 3000);
+            }
+
+            function scrollStep() {
+                // Verifica se há conteúdo suficiente
+                if (galleryViewport.scrollWidth <= galleryViewport.clientWidth) return;
+
+                // Calcula o tamanho do scroll baseado no tamanho do card + gap (20px)
+                const card = document.querySelector('.result-card');
+                const scrollAmount = card ? card.offsetWidth + 20 : 360;
+
+                if (galleryViewport.scrollLeft + galleryViewport.clientWidth >= galleryViewport.scrollWidth - 10) {
+                    // Chegou ao fim: Volta ao início e espera 2 minutos (120000ms)
+                    galleryViewport.scrollTo({left: 0, behavior: 'smooth'});
+                    autoScrollTimeout = setTimeout(scrollStep, 120000);
+                } else {
+                    // Rola para o lado e espera 5 segundos (5000ms) - Mais lento
+                    galleryViewport.scrollBy({left: scrollAmount, behavior: 'smooth'});
+                    autoScrollTimeout = setTimeout(scrollStep, 5000);
+                }
+            }
+
+            function stopAutoScroll() {
+                clearTimeout(autoScrollTimeout);
+            }
+
+            // Inicia o carrossel e configura os eventos de mouse
+            startAutoScroll();
+            const galleryContainer = document.querySelector('.gallery-scroll-container');
+            if (galleryContainer) {
+                galleryContainer.addEventListener('mouseenter', stopAutoScroll);
+                galleryContainer.addEventListener('mouseleave', startAutoScroll);
+            }
+        });
+    </script>
 </body>
 </html>

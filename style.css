@@ -108,8 +108,8 @@ body {
 }
 
 .main-nav a:hover {
-    color: var(--primary-color);
-    text-shadow: 0 0 10px var(--primary-color);
+    color: #00008B;
+    text-shadow: 0 0 10px #00008B;
 }
 
 /* Efeito de sublinhado animado */
@@ -120,9 +120,9 @@ body {
     height: 2px;
     bottom: -5px;
     left: 0;
-    background-color: var(--primary-color);
+    background-color: #00008B;
     transition: width 0.3s ease-in-out;
-    box-shadow: 0 0 5px var(--primary-color);
+    box-shadow: 0 0 5px #00008B;
 }
 
 .main-nav a:hover::after {
@@ -145,6 +145,7 @@ h1, h2, h3 {
 h1 {
     font-size: 2rem;
     margin-top: -15px; /* Aproxima o título do logo */
+    text-align: center;
 }
 
 h2, h3 {
@@ -209,6 +210,152 @@ ul {
     background-image: none; /* Remove o fundo gradiente para um visual mais limpo na seção */
    }
 
+   /* --- Estilos Específicos para Sobre Mim (Overlay com Desfoque) --- */
+   #sobre-mim,
+   #servicos,
+   #mfit {
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    max-width: 400px; /* Aumentar um pouco o tamanho do card */
+    margin: 40px auto; /* Centralizar na tela */
+    padding: 0; /* Remover padding para a foto ocupar tudo */
+    display: block; /* Remove comportamento flex para empilhar corretamente */
+    border-radius: 15px;
+    height: 480px; /* Aumenta a altura verticalmente para caber o texto */
+
+    /* Estado inicial para animação de scroll */
+    opacity: 0.9;
+    transform: scale(0.95);
+    transition: opacity 2.5s ease-out, transform 2.5s ease-out, box-shadow 2.5s ease;
+   }
+
+   #sobre-mim.in-view,
+   #servicos.in-view,
+   #mfit.in-view {
+    opacity: 1;
+    transform: scale(1.02); /* Levemente maior para destaque */
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+   }
+
+   #sobre-mim:hover,
+   #servicos:hover,
+   #mfit:hover {
+    transform: scale(1.05); /* Movimento no container todo */
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+   }
+
+   #sobre-mim .info-image,
+   #servicos .info-image,
+   #mfit .info-image {
+    position: relative; /* Volta a ser relativo para dar altura ao container */
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+   }
+
+   #sobre-mim .info-image img,
+   #servicos .info-image img {
+    width: 135%;
+    height: 100%; /* Preenche toda a altura do card */
+    object-fit: cover;
+    object-position: center top; /* Prioriza o topo da foto (rosto) */
+    filter: brightness(0.5);
+    transform: scale(1.1);
+    border-radius: 0;
+    box-shadow: none;
+    display: block; /* Remove espaço extra embaixo da imagem */
+   }
+
+   #mfit .info-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    filter: brightness(0.6);
+    transform: none;
+    border-radius: 0;
+    box-shadow: none;
+    display: block;
+   }
+
+   #mfit {
+    height: auto;
+    min-height: 450px;
+   }
+
+   #mfit .cta-button.transparent {
+    border-color: #00008B;
+    margin-top: 10px; /* Botão mais perto do texto */
+   }
+   #mfit .cta-button.transparent:hover {
+    background-color: #00008B;
+   }
+
+   #sobre-mim .info-image img:hover,
+   #servicos .info-image img:hover,
+   #mfit .info-image img:hover {
+    transform: none;
+    box-shadow: none;
+   }
+
+   #sobre-mim .info-text,
+   #servicos .info-text,
+   #mfit .info-text {
+    position: absolute; /* Texto flutuante sobre a imagem */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    padding: 20px;
+    box-sizing: border-box; /* Garante que o padding não afete a largura total */
+    padding: 0 60px; /* Mais padding lateral para empilhar o texto no centro */
+   }
+
+   #sobre-mim .info-text h2,
+   #servicos .info-text h3,
+   #mfit .info-text h3 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    text-align: center;
+   }
+
+   #sobre-mim .info-text p,
+   #servicos .info-text ul,
+   #mfit .info-text p {
+    font-size: 20px;
+    line-height: 1.2;
+    text-align: center;
+    padding: 0;
+   }
+
+   #sobre-mim .info-text h2,
+   #sobre-mim .info-text p,
+   #servicos .info-text h3,
+   #servicos .info-text ul,
+   #mfit .info-text h3,
+   #mfit .info-text p {
+    text-align: center;
+    color: rgb(255, 255, 255); /* Texto levemente transparente */
+    font-weight: bold;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 1);
+    transition: all 2.5s ease; /* Transição mais lenta */
+   }
+
+   #sobre-mim:hover .info-text h2, #sobre-mim:hover .info-text p,
+   #sobre-mim.in-view .info-text h2, #sobre-mim.in-view .info-text p,
+   #servicos:hover .info-text h3, #servicos:hover .info-text ul,
+   #servicos.in-view .info-text h3, #servicos.in-view .info-text ul,
+   #mfit:hover .info-text h3, #mfit:hover .info-text p,
+   #mfit.in-view .info-text h3, #mfit.in-view .info-text p {
+    color: #ffffff; /* Cor forte */
+    text-shadow: 0 0 5px #ffffff, 0 0 10px rgba(255, 255, 255, 0.9); /* Brilho mais forte e visível */
+   }
 
   
 /* --- Media Query para Responsividade --- */
@@ -239,6 +386,24 @@ ul {
     .main-nav a {
         font-size: 0.9rem;
     }
+
+    /* Ajuste do card Sobre Mim para mobile */
+    #sobre-mim,
+    #servicos,
+    #mfit {
+        height: 330px; /* Altura reduzida para melhor visualização */
+        max-width: 85%;
+    }
+    #sobre-mim .info-text p,
+    #servicos .info-text ul,
+    #mfit .info-text p {
+        font-size: 1rem;
+    }
+
+    #mfit {
+        height: auto;
+        min-height: 350px;
+    }
 }
 
 /* --- Seção de Resultados (Antes e Depois) --- */
@@ -246,7 +411,7 @@ ul {
     margin-top: 60px;
     background: rgba(255, 255, 255, 0.1);
     padding: 40px;
-    -webkit-backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(20px);
     border-radius: 15px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     text-align: center;
@@ -289,9 +454,9 @@ ul {
 }
 
 .result-card {
-    width: 340px;
+    width: 450px; /* Mais larga */
     position: relative; /* Adicionado para conter o .result-info */
-    height: 350px;
+    height: 300px; /* Menor comprimento (altura) */
     transition: transform 0.3s;
     transition: transform 0.3s, box-shadow 0.3s;
     box-shadow: 0 4px 15px rgba(0,0,0,0.5);
@@ -301,6 +466,12 @@ ul {
     transform: scale(1.05);
     box-shadow: 0 0 20px var(--primary-color);
     z-index: 10;
+}
+
+.result-card.fade-out {
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
 .result-card img {
@@ -632,9 +803,23 @@ footer p {
 
     /* Cards da galeria responsivos */
     .result-card {
-        width: 95vw; /* Aumenta a largura do card para 95% da tela */
-        height: auto;
-        aspect-ratio: 340/350;
+        width: 100px;
+        height: 120px /* Aumentado para ocupar mais espaço */
+        scroll-snap-align: center;
+    }
+
+    .gallery-viewport {
+        scroll-snap-type: x mandatory;
+    }
+
+    /* Parte de adicionar fotos menor no celular */
+    .upload-box {
+        width: 150px;
+        height: 120px;
+    }
+
+    .upload-box span {
+        font-size: 0.7rem;
     }
 
     /* Ajuste do modal para telas pequenas */
@@ -647,7 +832,9 @@ footer p {
     
     /* Melhor performance de scroll em mobile */
     body {
-        background-attachment: scroll;
+        background-attachment: fixed;
+        background-size: cover;
+        background-repeat: no-repeat;
     }
 }
 
