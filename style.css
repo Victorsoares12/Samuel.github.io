@@ -40,15 +40,15 @@ body {
     height: auto;
     margin-top: 10px;
     /* Sombra 3D profunda e animação contínua */
-    filter: drop-shadow(0 15px 15px rgba(0, 0, 0, 0.6));
+    filter: drop-shadow(0 20px 20px rgba(0, 0, 0, 0.6));
     animation: pulseLogo 3s ease-in-out infinite;
-    transition: all 0.5s ease;
+    transition: all 0.6s ease;
 }
 
 .header-logo:hover,
 .header-logo:active {
     /* Gira 360 graus (efeito 3D) ao passar o mouse ou tocar */
-    animation: rotateLogo 3s ease-in-out infinite;
+    animation: rotateLogo 5s ease-in-out infinite;
     filter: drop-shadow(0 25px 30px rgba(0, 0, 0, 0.8));
 }
 
@@ -72,63 +72,6 @@ body {
 
 }
 
-/* --- Barra de Navegação --- */
-.main-nav {
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.2); /* Mais transparente */
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    margin-bottom: 5px;
-}
-
-.main-nav ul {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 30px;
-    margin: 0;
-    padding: 15px;
-    background: none; /* Remove fundo padrão de listas */
-    box-shadow: none;
-}
-
-.main-nav a {
-    position: relative; /* Necessário para o sublinhado animado */
-    color: #fff;
-    text-decoration: none;
-    font-size: 1.1rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: color 0.3s ease;
-}
-
-.main-nav a:hover {
-    color: #00008B;
-    text-shadow: 0 0 10px #00008B;
-}
-
-/* Efeito de sublinhado animado */
-.main-nav a::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: -5px;
-    left: 0;
-    background-color: #00008B;
-    transition: width 0.3s ease-in-out;
-    box-shadow: 0 0 5px #00008B;
-}
-
-.main-nav a:hover::after {
-    width: 100%;
-}
-
 /* Anúncios no Rodapé */
 .footer-ad {
     min-width: 250px;
@@ -144,12 +87,12 @@ h1, h2, h3 {
 
 h1 {
     font-size: 2rem;
-    margin-top: -15px; /* Aproxima o título do logo */
+    margin-top: -20px; /* Aproxima o título do logo */
     text-align: center;
 }
 
 h2, h3 {
-    font-size: 2rem;
+    font-size: 3rem;
 }
 
 /* Agrupando parágrafos e listas com estilos comuns */
@@ -164,6 +107,15 @@ p, ul {
 ul {
     list-style-type: none; /* Remove os marcadores (bolinhas) da lista */
 }
+
+   /* Container para alinhar os cards superiores lado a lado */
+   .cards-container {
+       display: flex;
+       justify-content: center;
+       flex-wrap: wrap;
+       gap: 50px; /* Mais espaço entre os cards */
+       margin: 40px auto;
+   }
 
    /* --- Estilos para Seções de Informação (Sobre Mim, Serviços) --- */
    .info-section {
@@ -217,12 +169,15 @@ ul {
     position: relative;
     overflow: hidden;
     text-align: center;
-    max-width: 400px; /* Aumentar um pouco o tamanho do card */
-    margin: 40px auto; /* Centralizar na tela */
+    max-width: 350px; /* Card mais largo */
+    margin: 0; /* Margem removida para o flexbox controlar o espaçamento */
     padding: 0; /* Remover padding para a foto ocupar tudo */
-    display: block; /* Remove comportamento flex para empilhar corretamente */
+    display: flex; /* Flex para centralizar verticalmente */
+    flex-direction: column;
+    justify-content: center;
     border-radius: 15px;
-    height: 480px; /* Aumenta a altura verticalmente para caber o texto */
+    height: 400px; /* Altura fixa para desktop */
+    width: 85%; /* Garante largura uniforme */
 
     /* Estado inicial para animação de scroll */
     opacity: 0.9;
@@ -248,7 +203,9 @@ ul {
    #sobre-mim .info-image,
    #servicos .info-image,
    #mfit .info-image {
-    position: relative; /* Volta a ser relativo para dar altura ao container */
+    position: absolute; /* Imagem como fundo */
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     z-index: 0;
@@ -268,8 +225,8 @@ ul {
    }
 
    #mfit .info-image img {
-    width: 100%;
-    height: 100%;
+    width: 200%;
+    height: 120%;
     object-fit: cover;
     object-position: center;
     filter: brightness(0.6);
@@ -280,8 +237,7 @@ ul {
    }
 
    #mfit {
-    height: auto;
-    min-height: 450px;
+    /* Propriedades agora herdadas do grupo principal para padronização */
    }
 
    #mfit .cta-button.transparent {
@@ -302,11 +258,9 @@ ul {
    #sobre-mim .info-text,
    #servicos .info-text,
    #mfit .info-text {
-    position: absolute; /* Texto flutuante sobre a imagem */
-    top: 0;
-    left: 0;
+    position: relative; /* Texto relativo para ocupar espaço */
     width: 100%;
-    height: 100%;
+    height: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -320,15 +274,32 @@ ul {
    #sobre-mim .info-text h2,
    #servicos .info-text h3,
    #mfit .info-text h3 {
-    font-size: 1.8rem;
+    font-size: 1.8rem; /* Tamanho corrigido para aparecer bem */
     margin-bottom: 10px;
+    margin-top: 40px; /* Empurra o título mais para baixo */
     text-align: center;
    }
 
-   #sobre-mim .info-text p,
-   #servicos .info-text ul,
+   /* Texto menor para Sobre Mim */
+   #sobre-mim .info-text p {
+    font-size: 0.9rem; /* Texto menor */
+    line-height: 1.4;
+    text-align: center;
+    padding: 0;
+   }
+
+   /* Texto ajustado para Mfit */
    #mfit .info-text p {
-    font-size: 20px;
+    font-size: 1.0rem; /* Maior */
+    line-height: 1.1; /* Mais perto */
+    letter-spacing: -0.5px;
+    text-align: center;
+    padding: 0;
+   }
+
+   /* Texto maior para o card do meio (Serviços) */
+   #servicos .info-text ul {
+    font-size: 1.0rem; /* Ajustado para a nova altura do card */
     line-height: 1.2;
     text-align: center;
     padding: 0;
@@ -357,9 +328,125 @@ ul {
     text-shadow: 0 0 5px #ffffff, 0 0 10px rgba(255, 255, 255, 0.9); /* Brilho mais forte e visível */
    }
 
+   /* --- Seção de Motivação --- */
+   .motivation-section {
+       text-align: center;
+       padding: 20px;
+       margin-top: 60px;
+   }
+
+   .motivation-section h3 {
+       margin-bottom: 40px;
+   }
+
+   /* --- Carrossel de Motivação (Modo Paisagem) --- */
+   .motivation-carousel {
+       position: relative;
+       width: 100%;
+       max-width: 800px; /* Largura aumentada para paisagem */
+       height: 450px; /* Altura ajustada para paisagem */
+       margin: 0 auto;
+       border-radius: 20px;
+       overflow: hidden;
+       box-shadow: none;
+       background-color: transparent;
+       border: none;
+   }
+
+   .motivation-slide {
+       position: absolute;
+       top: 0;
+       left: 0;
+       width: 120%;
+       height: 120%;
+       opacity: 0;
+       transition: opacity 2s ease-in-out;
+       display: flex;
+       flex-direction: column;
+       justify-content: flex-end;
+   }
+
+   .motivation-slide.active {
+       opacity: 1;
+       z-index: 1;
+   }
+
+   .motivation-slide img {
+       position: absolute;
+       top: 0;
+       left: 0;
+       width: 200px;
+       height: 120%;
+       object-fit: contain;
+       z-index: 0;
+       filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
+   }
+
+   .motivation-text {
+       position: relative;
+       z-index: 1;
+       padding: 30px;
+       background-color: transparent;
+       margin: 0 20px 20px;
+       color: white;
+       text-align: center;
+   }
+
+   .motivation-text p {
+       font-size: 1.2rem;
+       font-style: italic;
+       text-shadow: 0 2px 10px rgba(0,0,0,1);
+       background: none;
+       margin: 0;
+       padding: 0;
+       color: #fff;
+   }
   
 /* --- Media Query para Responsividade --- */
 @media (max-width: 768px) {
+    /* Ajuste de texto dos cards no celular */
+    #sobre-mim .info-text p,
+    #mfit .info-text p {
+        font-size: 0.7rem; /* Texto menor para caber tudo e mostrar o botão */
+        line-height: 1.2;
+    }
+
+    /* Reduz drasticamente o padding lateral no celular para o texto ter espaço */
+    #sobre-mim .info-text,
+    #servicos .info-text,
+    #mfit .info-text {
+        padding: 0 10px;
+    }
+
+    /* Ajusta posição dos títulos para não cortar */
+    #sobre-mim .info-text h2,
+    #mfit .info-text h3 {
+        margin-top: 15px; /* Mais para cima */
+        font-size: 1.4rem;
+        margin-bottom: 5px;
+    }
+
+    /* Ajusta botão do Mfit para caber */
+    #mfit .cta-button {
+        margin-top: 5px;
+        padding: 8px 15px;
+        font-size: 0.8rem;
+    }
+
+    #servicos .info-text ul {
+        font-size: 1.2rem; /* Mantém destaque no celular */
+    }
+
+    /* Container dos cards com rolagem horizontal no celular */
+    .cards-container {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: flex-start;
+        padding: 0 20px 20px 20px;
+        gap: 20px;
+        scroll-snap-type: x mandatory;
+    }
+
     .info-section {
         flex-direction: column; /* Empilha imagem e texto em telas pequenas */
         text-align: center;
@@ -377,22 +464,16 @@ ul {
         max-width: 100%; /* Remove o limite de 300px para ocupar a largura da tela */
     }
 
-    /* Ajustes da navegação para mobile */
-    .main-nav ul {
-        flex-wrap: wrap;
-        gap: 15px;
-        padding: 10px;
-    }
-    .main-nav a {
-        font-size: 0.9rem;
-    }
-
     /* Ajuste do card Sobre Mim para mobile */
     #sobre-mim,
     #servicos,
     #mfit {
-        height: 330px; /* Altura reduzida para melhor visualização */
-        max-width: 85%;
+        height: auto;
+        min-height: 250px;
+        min-width: 300px; /* Largura fixa para rolagem lateral */
+        max-width: 300px;
+        flex: 0 0 auto;
+        scroll-snap-align: center;
     }
     #sobre-mim .info-text p,
     #servicos .info-text ul,
@@ -402,18 +483,23 @@ ul {
 
     #mfit {
         height: auto;
-        min-height: 350px;
+        min-height: 250px;
+    }
+
+    /* Ajuste fino para o carrossel no mobile se necessário */
+    .motivation-carousel {
+        height: 300px; /* Altura reduzida no mobile para manter aspecto paisagem */
     }
 }
 
 /* --- Seção de Resultados (Antes e Depois) --- */
 .results-section {
     margin-top: 60px;
-    background: rgba(255, 255, 255, 0.1);
+    background: transparent;
     padding: 40px;
-    -webkit-backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: none;
     border-radius: 15px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: none;
     text-align: center;
 }
 
@@ -432,12 +518,39 @@ ul {
     position: relative;
 }
 
+.gallery-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+}
+
+.gallery-nav-btn:hover {
+    background-color: var(--primary-color);
+}
+
+.prev-btn { left: 10px; }
+.next-btn { right: 10px; }
+
 .gallery-viewport {
     width: 100%;
     overflow-x: auto; /* Permite rolagem horizontal */
     -webkit-overflow-scrolling: touch; /* Melhora a rolagem em dispositivos móveis */
     scrollbar-width: none; /* Esconde a barra de rolagem no Firefox */
     cursor: grab;
+    mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
 }
 
 .gallery-viewport::-webkit-scrollbar {
@@ -454,12 +567,13 @@ ul {
 }
 
 .result-card {
-    width: 450px; /* Mais larga */
+    width: 300px; /* Aumentado para ficar mais largo */
     position: relative; /* Adicionado para conter o .result-info */
     height: 300px; /* Menor comprimento (altura) */
     transition: transform 0.3s;
     transition: transform 0.3s, box-shadow 0.3s;
     box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    flex: 0 0 auto; /* Garante que o card NÃO encolha e respeite a largura */
 }
 
 .result-card:hover {
@@ -563,10 +677,10 @@ ul {
 
 .submission-area {
     margin-top: 40px;
-    background-color: rgba(0,0,0,0.3);
+    background-color: transparent;
     padding: 30px;
     border-radius: 15px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: none;
 }
 
 .submission-area h4 {
@@ -584,8 +698,8 @@ ul {
 }
 
 .upload-box {
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 220px;
     border: 2px solid rgba(255, 255, 255, 0.2);
     border-radius: 10px;
     display: flex;
@@ -594,13 +708,29 @@ ul {
     position: relative;
     overflow: hidden;
     cursor: pointer;
-    background-color: rgba(0,0,0,0.4);
+    background-color: transparent;
     transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 .upload-box:hover {
     border-color: var(--primary-color);
     box-shadow: 0 0 15px var(--primary-color);
+}
+
+.upload-placeholders .upload-box:first-child {
+    background-image: url('z-img/antes.png');
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+
+
+}
+
+.upload-placeholders .upload-box:last-child {
+    background-image: url('z-img/depois.png');
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .upload-box label {
@@ -614,12 +744,16 @@ ul {
 }
 
 .upload-box img {
-    width: 100%;
-    height: 100%;
+    width: 50px;
+    height: 50px;
     object-fit: cover;
     position: absolute;
     top: 0;
     left: 0;
+}
+
+.upload-box img[src=""] {
+    display: none;
 }
 
 .upload-box span {
@@ -627,7 +761,7 @@ ul {
     z-index: 2;
     color: #ccc;
     text-align: center;
-    background-color: rgba(0,0,0,0.5);
+    background-color: transparent;
     padding: 5px;
     border-radius: 5px;
 }
@@ -765,6 +899,7 @@ footer {
     transform: translateY(-3px); /* Efeito de levantar o ícone */
 }
 
+
 footer p {
     margin: 0;
     font-size: 0.5rem;
@@ -803,19 +938,19 @@ footer p {
 
     /* Cards da galeria responsivos */
     .result-card {
-        width: 100px;
-        height: 120px /* Aumentado para ocupar mais espaço */
-        scroll-snap-align: center;
+        width: 340px; /* Mais largo no celular */
+        height: 250px;
     }
 
-    .gallery-viewport {
-        scroll-snap-type: x mandatory;
+    .upload-placeholders {
+        flex-wrap: nowrap;
+        gap: 10px;
     }
 
     /* Parte de adicionar fotos menor no celular */
     .upload-box {
-        width: 150px;
-        height: 120px;
+        width: 48%;
+        height: 200px;
     }
 
     .upload-box span {
@@ -905,3 +1040,27 @@ footer p {
 .instagram-button-injected .fa-instagram {
     font-size: 24px;
 }
+
+/* --- Botão Voltar ao Topo --- */
+#back-to-top {
+    position: fixed;
+    bottom: 90px; /* Acima do botão do WhatsApp */
+    right: 20px;
+    width: 45px;
+    height: 45px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: opacity 0.3s, transform 0.3s, background-color 0.3s;
+    opacity: 0;
+    pointer-events: none;
+}
+#back-to-top.show { opacity: 1; pointer-events: auto; }
+#back-to-top:hover { background-color: #34e96b; transform: translateY(-5px); }
