@@ -129,20 +129,30 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         let isScrolling = true;
+        let scrollPos = 0;
         let resumeTimeout;
 
         function smoothScroll() {
             if (!isScrolling) return;
 
             // Se chegar ao fim, volta para o começo
-            if (galleryViewport.scrollLeft >= (galleryViewport.scrollWidth - galleryViewport.clientWidth)) {
-                galleryViewport.scrollLeft = 0;
+            scrollPos += 0.5; // Velocidade ajustada
+            if (scrollPos >= (galleryViewport.scrollWidth - galleryViewport.clientWidth)) {
+                scrollPos = 0;
             } else {
-                galleryViewport.scrollLeft += 0.3; // Velocidade reduzida para melhor visualização
+                // Continua incrementando
             }
-
+            
+            galleryViewport.scrollLeft = scrollPos;
             requestAnimationFrame(smoothScroll);
         }
+
+        // Sincroniza a posição caso o usuário role manualmente
+        galleryViewport.addEventListener('scroll', () => {
+            if (!isScrolling) {
+                scrollPos = galleryViewport.scrollLeft;
+            }
+        });
 
         // Inicia o scroll
         requestAnimationFrame(smoothScroll);
@@ -181,6 +191,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 const card = galleryTrack.querySelector('.result-card');
                 const scrollAmount = card ? card.offsetWidth + 20 : 320; // Largura do card + gap
                 galleryViewport.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+                // Atualiza a posição lógica após o scroll manual
+                setTimeout(() => { scrollPos = galleryViewport.scrollLeft; }, 500);
                 clearTimeout(resumeTimeout);
                 resumeTimeout = setTimeout(() => {
                     isScrolling = true;
@@ -194,6 +206,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const card = galleryTrack.querySelector('.result-card');
                 const scrollAmount = card ? card.offsetWidth + 20 : 320;
                 galleryViewport.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+                setTimeout(() => { scrollPos = galleryViewport.scrollLeft; }, 500);
                 clearTimeout(resumeTimeout);
                 resumeTimeout = setTimeout(() => {
                     isScrolling = true;
