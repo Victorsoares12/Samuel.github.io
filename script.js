@@ -114,113 +114,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // --- Lógica do Carrossel Automático e Contínuo ---
-    const galleryContainer = document.querySelector('.gallery-scroll-container');
-    const galleryViewport = document.querySelector('.gallery-viewport');
-    const prevBtn = document.querySelector('.prev-btn');
-    const nextBtn = document.querySelector('.next-btn');
-
-    if (galleryTrack && galleryViewport) {
-        const originalCards = galleryTrack.querySelectorAll('.result-card');
-        
-        // Clona os cards iniciais UMA vez para garantir que o carrossel tenha espaço para girar
-        originalCards.forEach(card => {
-            galleryTrack.appendChild(card.cloneNode(true));
-        });
-
-        let isScrolling = true;
-        let scrollPos = 0;
-        let resumeTimeout;
-
-        function smoothScroll() {
-            if (!isScrolling) return;
-
-            // Se chegar ao fim, volta para o começo
-            scrollPos += 0.5; // Velocidade ajustada
-            if (scrollPos >= (galleryViewport.scrollWidth - galleryViewport.clientWidth)) {
-                scrollPos = 0;
-            } else {
-                // Continua incrementando
-            }
-            
-            galleryViewport.scrollLeft = scrollPos;
-            requestAnimationFrame(smoothScroll);
-        }
-
-        // Sincroniza a posição caso o usuário role manualmente
-        galleryViewport.addEventListener('scroll', () => {
-            if (!isScrolling) {
-                scrollPos = galleryViewport.scrollLeft;
-            }
-        });
-
-        // Inicia o scroll
-        requestAnimationFrame(smoothScroll);
-
-        // Pausa o scroll quando o mouse está sobre a galeria
-        galleryContainer.addEventListener('mouseenter', () => {
-            isScrolling = false;
-            // Retoma automaticamente após 1 minuto (60000ms)
-            clearTimeout(resumeTimeout);
-            resumeTimeout = setTimeout(() => {
-                isScrolling = true;
-                requestAnimationFrame(smoothScroll);
-            }, 60000);
-        });
-
-        galleryContainer.addEventListener('mouseleave', () => {
-            isScrolling = true;
-            clearTimeout(resumeTimeout);
-            requestAnimationFrame(smoothScroll); // Reinicia a animação
-        });
-        
-        // Suporte para toque (mobile)
-        galleryContainer.addEventListener('touchstart', () => {
-            isScrolling = false;
-            clearTimeout(resumeTimeout);
-            resumeTimeout = setTimeout(() => {
-                isScrolling = true;
-                requestAnimationFrame(smoothScroll);
-            }, 60000);
-        }, {passive: true});
-
-        // Lógica das Setas de Navegação
-        if (prevBtn) {
-            prevBtn.addEventListener('click', () => {
-                isScrolling = false;
-                const card = galleryTrack.querySelector('.result-card');
-                const scrollAmount = card ? card.offsetWidth + 20 : 320; // Largura do card + gap
-                galleryViewport.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-                // Atualiza a posição lógica após o scroll manual
-                setTimeout(() => { scrollPos = galleryViewport.scrollLeft; }, 500);
-                clearTimeout(resumeTimeout);
-                resumeTimeout = setTimeout(() => {
-                    isScrolling = true;
-                    requestAnimationFrame(smoothScroll);
-                }, 10000); // Retoma após 10 segundos
-            });
-        }
-        if (nextBtn) {
-            nextBtn.addEventListener('click', () => {
-                isScrolling = false;
-                const card = galleryTrack.querySelector('.result-card');
-                const scrollAmount = card ? card.offsetWidth + 20 : 320;
-                galleryViewport.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-                setTimeout(() => { scrollPos = galleryViewport.scrollLeft; }, 500);
-                clearTimeout(resumeTimeout);
-                resumeTimeout = setTimeout(() => {
-                    isScrolling = true;
-                    requestAnimationFrame(smoothScroll);
-                }, 10000);
-            });
-        }
-    }
-
     // --- Botão Voltar ao Topo ---
     const backToTopBtn = document.getElementById('back-to-top');
     if (backToTopBtn) {
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) {
+            if (window.scrollY > 50) {
                 backToTopBtn.classList.add('show');
             } else {
                 backToTopBtn.classList.remove('show');
@@ -230,18 +128,6 @@ document.addEventListener('DOMContentLoaded', function() {
         backToTopBtn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
-    }
-
-    // --- Carrossel de Motivação Automático ---
-    const motivationSlides = document.querySelectorAll('.motivation-slide');
-    let currentMotivationSlide = 0;
-
-    if (motivationSlides.length > 0) {
-        setInterval(() => {
-            motivationSlides[currentMotivationSlide].classList.remove('active');
-            currentMotivationSlide = (currentMotivationSlide + 1) % motivationSlides.length;
-            motivationSlides[currentMotivationSlide].classList.add('active');
-        }, 3000); // Troca a cada 3 segundos
     }
 });
 c:\Portifolio Site\Samuel.github.io\script.js
