@@ -29,6 +29,22 @@ body {
     /* Previne rolagem horizontal na página inteira */
 }
 
+/* Scrollbar Personalizada (Moderno) */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: #1a1a1a;
+}
+::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 10px;
+    border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color);
+}
+
 body::before {
     content: "";
     position: fixed;
@@ -149,6 +165,11 @@ ul {
     gap: 50px;
     /* Mais espaço entre os cards */
     margin: 40px auto;
+}
+
+/* Indicador de scroll para mobile (oculto no desktop) */
+.mobile-scroll-indicator {
+    display: none;
 }
 
 /* --- Estilos para Seções de Informação (Sobre Mim, Serviços) --- */
@@ -408,6 +429,28 @@ ul {
 /* --- Media Query para Responsividade --- */
 @media (max-width: 768px) {
 
+    /* Indicador de arrastar para o lado */
+    .mobile-scroll-indicator {
+        display: block;
+        text-align: center;
+        margin-bottom: 5px;
+        margin-top: -10px;
+    }
+
+    .mobile-scroll-indicator span {
+        font-size: 0.8rem;
+        color: rgba(255, 255, 255, 0.7);
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        animation: slideHint 1.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes slideHint {
+        from { transform: translateX(0); }
+        to { transform: translateX(10px); }
+    }
+
     /* Ajuste de texto dos cards no celular */
     #sobre-mim .info-text p,
     #mfit .info-text p {
@@ -522,6 +565,11 @@ ul {
     text-align: center;
 }
 
+#resultados {
+    margin-top: 0;
+    padding-top: 10px;
+}
+
 .results-subtitle {
     font-size: 1.1rem !important;
     color: #ccc !important;
@@ -551,6 +599,34 @@ ul {
     mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
     -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
 }
+
+/* Botões de navegação da galeria (Setas) */
+.scroll-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s, transform 0.2s;
+    font-size: 1.2rem;
+}
+
+.scroll-btn:hover {
+    background-color: var(--primary-color);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.left-btn { left: 10px; }
+.right-btn { right: 10px; }
 
 .gallery-viewport::-webkit-scrollbar {
     display: none;
@@ -749,13 +825,28 @@ ul {
     cursor: pointer;
 }
 
+/* Correção para funcionar upload no celular */
+.file-input-hidden {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 10;
+}
+
 .upload-box img {
     width: 50px;
     height: 50px;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
     position: absolute;
     top: 0;
     left: 0;
+    border-radius: 10px;
 }
 
 .upload-box img[src=""] {
@@ -790,7 +881,8 @@ ul {
 }
 
 .uniform-card:hover {
-    box-shadow: 0 0 10px #00008B;
+    box-shadow: 0 0 25px rgba(0, 0, 139, 0.6);
+    transform: translateY(-5px);
 }
 
 .uniform-card img {
@@ -876,10 +968,34 @@ ul {
 .modal-content input {
     padding: 12px;
     border-radius: 5px;
-    border: 1px solid #555;
-    background-color: #333;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.05);
     color: white;
     font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.modal-content input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 10px rgba(230, 57, 70, 0.3);
+    outline: none;
+}
+
+.modal-content select {
+    padding: 12px;
+    border-radius: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.05);
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.modal-content select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 10px rgba(230, 57, 70, 0.3);
+    outline: none;
 }
 
 .cancel-button {
@@ -888,7 +1004,20 @@ ul {
     color: white;
     border: none;
     border-radius: 8px;
+    background: transparent;
+    border: 1px solid #555;
+    color: #aaa;
+    border-radius: 25px;
+    padding: 10px 20px;
+    font-weight: bold;
     cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.cancel-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #fff;
+    color: #fff;
 }
 
 /* --- Estilos para o Modal de Imagem --- */
@@ -936,23 +1065,27 @@ ul {
     display: inline-block;
     margin-top: 20px;
     padding: 12px 25px;
-    background-color: var(--primary-color);
+    background: linear-gradient(135deg, var(--primary-color), #ff6b6b);
     color: white;
     text-decoration: none;
     font-weight: bold;
-    border-radius: 8px;
+    border-radius: 25px;
+    border: none;
     transition: transform 0.3s, background-color 0.3s;
+    box-shadow: 0 4px 15px rgba(230, 57, 70, 0.4);
 }
 
 .cta-button:hover {
-    transform: scale(1.05);
-    background-color: #34e96b;
+    transform: translateY(-3px) scale(1.02);
+    background: linear-gradient(135deg, #ff6b6b, var(--primary-color));
+    box-shadow: 0 8px 25px rgba(230, 57, 70, 0.6);
 }
 
 /* O botão transparente herda as novas transições e é ajustado */
 .cta-button.transparent {
-    background-color: transparent;
+    background: transparent;
     border: 2px solid var(--primary-color);
+    box-shadow: none;
 }
 
 footer {
@@ -1025,6 +1158,11 @@ footer p {
         margin-top: 30px;
     }
 
+    #resultados {
+        margin-top: 0;
+        padding-top: 10px;
+    }
+
     /* Botões empilhados para facilitar o toque */
     .controls .level-btn,
     .action-buttons-container,
@@ -1077,6 +1215,22 @@ footer p {
     .result-card .card-actions {
         opacity: 1;
     }
+
+    /* Esconde setas no celular, pois usa touch */
+    .scroll-btn {
+        display: none;
+    }
+
+    /* Ajuste para card de uniforme menor no celular */
+    .uniform-card {
+        width: 280px;
+        height: auto;
+        scroll-snap-align: center;
+    }
+
+    .uniform-caption {
+        font-size: 0.9rem;
+    }
 }
 
 @media (max-width: 1024px) {
@@ -1102,6 +1256,12 @@ footer p {
         box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
     }
 }
+   
+
+
+
+
+
 
 .whatsapp-button-injected {
     position: fixed;
@@ -1204,6 +1364,20 @@ footer p {
     transition: opacity 0.3s, transform 0.3s, box-shadow 0.3s;
     opacity: 0;
     pointer-events: none;
+}
+
+/* Texto "Voltar ao Topo" acima do botão */
+#back-to-top::after {
+    content: 'Voltar ao Topo';
+    position: absolute;
+    bottom: 50px; /* Posiciona acima do botão */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.6rem;
+    color: #fff;
+    white-space: nowrap;
+    text-shadow: 1px 1px 2px #000;
+    font-weight: bold;
 }
 
 #back-to-top.show {

@@ -24,6 +24,10 @@
     </div>
     <h1>Personal Trainer</h1>
 
+    <div class="mobile-scroll-indicator">
+        <span>Arrasta pro lado <i class="fas fa-arrow-right"></i></span>
+    </div>
+
     <div class="cards-container">
         <!-- Seção Sobre Mim com imagem ao lado -->
         <!-- Apresentação do profissional -->
@@ -101,10 +105,11 @@
         <h3>Resultados Reais 🏆</h3>
         <p class="results-subtitle">Veja a transformação de alguns dos meus alunos e inspire-se!</p>
         <div class="gallery-scroll-container">
+            <button class="scroll-btn left-btn" aria-label="Anterior"><i class="fas fa-chevron-left"></i></button>
             <div class="gallery-viewport">
                 <div class="gallery-track">
                     <!-- Card Exemplo 1 -->
-                    <div class="result-card">
+                    <div class="result-card" data-id="static-1">
                         <div class="comparison-container">
                             <div class="comparison-item"><span class="comparison-label">Antes</span><img
                                     src="z-img/samuel.png" alt="Antes"></div>
@@ -120,7 +125,7 @@
                         </div>
                     </div>
                     <!-- Card Exemplo 2 -->
-                    <div class="result-card">
+                    <div class="result-card" data-id="static-2">
                         <div class="comparison-container">
                             <div class="comparison-item"><span class="comparison-label">Antes</span><img
                                     src="z-img/samuel.png" alt="Antes"></div>
@@ -136,7 +141,7 @@
                         </div>
                     </div>
                     <!-- Card Exemplo 3 -->
-                    <div class="result-card">
+                    <div class="result-card" data-id="static-3">
                         <div class="comparison-container">
                             <div class="comparison-item"><span class="comparison-label">Antes</span><img
                                     src="z-img/samuel.png" alt="Antes"></div>
@@ -152,7 +157,7 @@
                         </div>
                     </div>
                     <!-- Card Exemplo 4 -->
-                    <div class="result-card">
+                    <div class="result-card" data-id="static-4">
                         <div class="comparison-container">
                             <div class="comparison-item"><span class="comparison-label">Antes</span><img
                                     src="z-img/samuel.png" alt="Antes"></div>
@@ -169,6 +174,7 @@
                     </div>
                 </div>
             </div>
+            <button class="scroll-btn right-btn" aria-label="Próximo"><i class="fas fa-chevron-right"></i></button>
         </div>
         <!-- Área para o usuário "enviar" a foto -->
         <div class="submission-area">
@@ -179,14 +185,14 @@
                         <img id="preview-antes" src="" alt="Preview Antes">
                         <span>Clique para enviar o <strong>Antes</strong></span>
                     </label>
-                    <input type="file" id="upload-antes" accept="image/*" style="display:none;">
+                    <input type="file" id="upload-antes" accept="image/*" class="file-input-hidden">
                 </div>
                 <div class="upload-box">
                     <label for="upload-depois">
                         <img id="preview-depois" src="" alt="Preview Depois">
                         <span>Clique para enviar o <strong>Depois</strong></span>
                     </label>
-                    <input type="file" id="upload-depois" accept="image/*" style="display:none;">
+                    <input type="file" id="upload-depois" accept="image/*" class="file-input-hidden">
                 </div>
             </div>
         </div>
@@ -199,6 +205,15 @@
             <h3>Detalhes da sua Transformação</h3>
             <label for="submission-name" class="sr-only">Seu nome</label>
             <input type="text" id="submission-name" placeholder="Seu nome">
+            
+            <label for="submission-type" class="sr-only">Tipo de Resultado</label>
+            <select id="submission-type">
+                <option value="perda_peso">Perda de Peso</option>
+                <option value="ganho_massa">Ganho de Massa</option>
+                <option value="definicao">Definição Muscular</option>
+                <option value="outro">Outro</option>
+            </select>
+
             <label for="submission-before-weight" class="sr-only">Peso Antigo (kg)</label>
             <input type="number" id="submission-before-weight" placeholder="Peso Antigo (kg)">
             <label for="submission-after-weight" class="sr-only">Peso Atual (kg)</label>
@@ -257,6 +272,10 @@
             l.parentNode.insertBefore(s, l);
         })({})
     </script>
+
+    <!-- Bibliotecas do Firebase (Banco de Dados Online) -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 
     <!-- Script principal do site -->
     <script src="script.js" defer></script>
