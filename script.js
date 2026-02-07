@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // --- Lógica de Upload e Modal ---
     const uploadAntes = document.getElementById('upload-antes');
     const uploadDepois = document.getElementById('upload-depois');
@@ -8,14 +8,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const publishBtn = document.getElementById('publish-btn');
     const cancelBtn = document.getElementById('cancel-btn');
     const galleryTrack = document.querySelector('.gallery-track');
-    
+
     let imgAntesData = null;
     let imgDepoisData = null;
 
     function handleFileSelect(input, preview, isAntes) {
         if (input.files && input.files[0]) {
             const reader = new FileReader();
-            reader.onload = function(e) {
+            reader.onload = function (e) {
                 preview.src = e.target.result;
                 // Esconde o texto "Clique para enviar" para visualizar a foto
                 const span = preview.nextElementSibling;
@@ -29,8 +29,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    if (uploadAntes) uploadAntes.addEventListener('change', function() { handleFileSelect(this, previewAntes, true); });
-    if (uploadDepois) uploadDepois.addEventListener('change', function() { handleFileSelect(this, previewDepois, false); });
+    if (uploadAntes) uploadAntes.addEventListener('change', function () { handleFileSelect(this, previewAntes, true); });
+    if (uploadDepois) uploadDepois.addEventListener('change', function () { handleFileSelect(this, previewDepois, false); });
 
     function checkUploads() {
         if (imgAntesData && imgDepoisData) {
@@ -39,21 +39,21 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     if (cancelBtn) {
-        cancelBtn.addEventListener('click', function() {
+        cancelBtn.addEventListener('click', function () {
             submissionModal.style.display = 'none';
             resetForm();
         });
     }
 
     if (publishBtn) {
-        publishBtn.addEventListener('click', function() {
+        publishBtn.addEventListener('click', function () {
             const name = document.getElementById('submission-name').value || 'Aluno';
             const weightBefore = document.getElementById('submission-before-weight').value;
             const weightAfter = document.getElementById('submission-after-weight').value;
-            
+
             const card = document.createElement('div');
             card.className = 'result-card';
-            
+
             let weightInfo = '';
             if (weightBefore && weightAfter) {
                 const diff = weightBefore - weightAfter;
@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <button class="delete-btn" title="Excluir"><i class="fas fa-trash"></i></button>
                 </div>
             `;
-            
+
             galleryTrack.appendChild(card);
             // Removido a duplicação no upload manual para não ficar repetido
 
@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function resetForm() {
         uploadAntes.value = ''; uploadDepois.value = '';
         previewAntes.src = ''; previewDepois.src = '';
-        
+
         // Mostra o texto novamente para o próximo upload
         const spanAntes = previewAntes.nextElementSibling;
         const spanDepois = previewDepois.nextElementSibling;
@@ -100,9 +100,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     if (galleryTrack) {
-        galleryTrack.addEventListener('click', function(e) {
+        galleryTrack.addEventListener('click', function (e) {
             const deleteBtn = e.target.closest('.delete-btn');
             if (deleteBtn) {
+                e.preventDefault(); // Evita comportamentos padrão
+                e.stopPropagation(); // Impede que o clique afete outros elementos
                 const card = deleteBtn.closest('.result-card');
                 if (card && confirm('Tem certeza que deseja excluir este resultado?')) {
                     card.classList.add('fade-out');
@@ -129,20 +131,14 @@ document.addEventListener('DOMContentLoaded', function() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     }
-});
-c:\Portifolio Site\Samuel.github.io\script.js
- c:\Portifolio Site\Samuel.github.io\script.js
-@@ -163,4 +163,25 @@
-             }, 60000);
-         }, {passive: true});
-     }
-   // --- Navegação Ativa (Highlight no Scroll) ---
+    // --- Navegação Ativa (Highlight no Scroll) ---
     const navLinks = document.querySelectorAll('.main-nav a');
     const sections = document.querySelectorAll('section');
 
     function highlightNav() {
         let current = '';
-        sections.forEach(section => {            const sectionTop = section.offsetTop;
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
             // Ajuste de 150px para compensar a altura da barra fixa
             if (window.scrollY >= (sectionTop - 150)) {
                 current = section.getAttribute('id');
@@ -154,7 +150,7 @@ c:\Portifolio Site\Samuel.github.io\script.js
             if (current && link.getAttribute('href').includes(current)) {
                 link.classList.add('active');
             }
-       });
+        });
     }
 
     window.addEventListener('scroll', highlightNav);
@@ -171,131 +167,122 @@ c:\Portifolio Site\Samuel.github.io\script.js
             motivationSlides[currentMotivationSlide].classList.add('active');
         }, 5000); // Troca a cada 5 segundos
     }
+});
+--- c: \Portifolio Site\Samuel.github.io\script.js
++++ c: \Portifolio Site\Samuel.github.io\script.js
+@@ -163, 4 + 163, 25 @@
+             }, 60000);
+         }, { passive: true });
+     }
+
+// --- Navegação Ativa (Highlight no Scroll) ---
+const navLinks = document.querySelectorAll('.main-nav a');
+const sections = document.querySelectorAll('section');
+
+function highlightNav() {
+    let current = '';
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        // Ajuste de 150px para compensar a altura da barra fixa
+        if (window.scrollY >= (sectionTop - 150)) {
+            current = section.getAttribute('id');
+        }
+    });
+
+    navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (current && link.getAttribute('href').includes(current)) {
+            link.classList.add('active');
+        }
+    });
+}
+
+window.addEventListener('scroll', highlightNav);
+highlightNav(); // Executa ao carregar para marcar a seção inicial
  });
---- c:\Portifolio Site\Samuel.github.io\script.js
-+++ c:\Portifolio Site\Samuel.github.io\script.js
-@@ -163,4 +163,25 @@
-             }, 60000);
-         }, {passive: true});
-     }
 
-    // --- Navegação Ativa (Highlight no Scroll) ---
-    const navLinks = document.querySelectorAll('.main-nav a');
-    const sections = document.querySelectorAll('section');
+// --- Navegação Ativa (Highlight no Scroll) ---
+const navLinks = document.querySelectorAll('.main-nav a');
+const sections = document.querySelectorAll('section');
 
-    function highlightNav() {
-        let current = '';
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            // Ajuste de 150px para compensar a altura da barra fixa
-            if (window.scrollY >= (sectionTop - 150)) {
-               current = section.getAttribute('id');
-            }
-        });
+function highlightNav() {
+    let current = '';
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        // Ajuste de 150px para compensar a altura da barra fixa
+        if (window.scrollY >= (sectionTop - 150)) {
+            current = section.getAttribute('id');
+        }
+    });
 
-        navLinks.forEach(link => {            link.classList.remove('active');
-            if (current && link.getAttribute('href').includes(current)) {
-                link.classList.add('active');
-            }
-        });
-    }
+    navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (current && link.getAttribute('href').includes(current)) {
+            link.classList.add('active');
+        }
+    });
+}
 
-    window.addEventListener('scroll', highlightNav);
-    highlightNav(); // Executa ao carregar para marcar a seção inicial
- });--- c:\Portifolio Site\Samuel.github.io\script.js
- +++ c:\Portifolio Site\Samuel.github.io\script.js
- @@ -163,4 +163,25 @@
-              }, 60000);
-          }, {passive: true});
-      }
- 
-     // --- Navegação Ativa (Highlight no Scroll) ---
-     const navLinks = document.querySelectorAll('.main-nav a');
-    const sections = document.querySelectorAll('section');
-
-     function highlightNav() {
-        let current = '';
-         sections.forEach(section => {
-             const sectionTop = section.offsetTop;
-            // Ajuste de 150px para compensar a altura da barra fixa
-             if (window.scrollY >= (sectionTop - 150)) {
-                 current = section.getAttribute('id');
-             }
-         });
- 
-         navLinks.forEach(link => {
-             link.classList.remove('active');
-             if (current && link.getAttribute('href').includes(current)) {
-                 link.classList.add('active');
-             }
-         });
-     }
- 
-     window.addEventListener('scroll', highlightNav);
-     highlightNav(); // Executa ao carregar para marcar a seção inicial
+window.addEventListener('scroll', highlightNav);
+highlightNav(); // Executa ao carregar para marcar a seção inicial
   });
- --- c:\Portifolio Site\Samuel.github.io\script.js
- +++ c:\Portifolio Site\Samuel.github.io\script.js
- @@ -163,4 +163,25 @@
-              }, 60000);
-          }, {passive: true});
       }
- 
-     // --- Navegação Ativa (Highlight no Scroll) ---
-     const navLinks = document.querySelectorAll('.main-nav a');
-     const sections = document.querySelectorAll('section');
- 
-     function highlightNav() {
-         let current = '';
-         sections.forEach(section => {
-             const sectionTop = section.offsetTop;
-             // Ajuste de 150px para compensar a altura da barra fixa
-             if (window.scrollY >= (sectionTop - 150)) {
-                 current = section.getAttribute('id');
-            }
-        });
- 
-         navLinks.forEach(link => {
-             link.classList.remove('active');
-            if (current && link.getAttribute('href').includes(current)) {
-                 link.classList.add('active');
-             }
-         });
-     }
- 
-    window.addEventListener('scroll', highlightNav);
-    highlightNav(); // Executa ao carregar para marcar a seção inicial
+
+// --- Navegação Ativa (Highlight no Scroll) ---
+const navLinks = document.querySelectorAll('.main-nav a');
+const sections = document.querySelectorAll('section');
+
+function highlightNav() {
+    let current = '';
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        // Ajuste de 150px para compensar a altura da barra fixa
+        if (window.scrollY >= (sectionTop - 150)) {
+            current = section.getAttribute('id');
+        }
+    });
+
+    navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (current && link.getAttribute('href').includes(current)) {
+            link.classList.add('active');
+        }
+    });
+}
+
+window.addEventListener('scroll', highlightNav);
+highlightNav(); // Executa ao carregar para marcar a seção inicial
   });
- 
-  --- c:\Portifolio Site\Samuel.github.io\script.js
-+++ c:\Portifolio Site\Samuel.github.io\script.js
-@@ -163,4 +163,25 @@
+
+--- c: \Portifolio Site\Samuel.github.io\script.js
++++ c: \Portifolio Site\Samuel.github.io\script.js
+@@ -163, 4 + 163, 25 @@
              }, 60000);
-         }, {passive: true});
+         }, { passive: true });
      }
 
-    // --- Navegação Ativa (Highlight no Scroll) ---
-    const navLinks = document.querySelectorAll('.main-nav a');
-    const sections = document.querySelectorAll('section');
+// --- Navegação Ativa (Highlight no Scroll) ---
+const navLinks = document.querySelectorAll('.main-nav a');
+const sections = document.querySelectorAll('section');
 
-    function highlightNav() {
-        let current = '';
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            // Ajuste de 150px para compensar a altura da barra fixa
-            if (window.scrollY >= (sectionTop - 150)) {
-               current = section.getAttribute('id');
-            }
-        });
+function highlightNav() {
+    let current = '';
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        // Ajuste de 150px para compensar a altura da barra fixa
+        if (window.scrollY >= (sectionTop - 150)) {
+            current = section.getAttribute('id');
+        }
+    });
 
-        navLinks.forEach(link => {
-            link.classList.remove('active');   
-      if (current && link.getAttribute('href').includes(current)) {
-                link.classList.add('active');
-           }
-        });
-    }
+    navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (current && link.getAttribute('href').includes(current)) {
+            link.classList.add('active');
+        }
+    });
+}
 
-    window.addEventListener('scroll', highlightNav);
-    highlightNav(); // Executa ao carregar para marcar a seção inicial
+window.addEventListener('scroll', highlightNav);
+highlightNav(); // Executa ao carregar para marcar a seção inicial
 });

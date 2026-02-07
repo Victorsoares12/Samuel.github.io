@@ -19,10 +19,14 @@ html {
 /* Estilos do Corpo da Página (Fundo, Fonte Padrão) */
 body {
     /* Propriedade 'background' abreviada para mais concisão */
-    font-family: 'Science Gothic', sans-serif; /* Define a fonte padrão para todo o site */
-    color: var(--text-color); /* Define a cor de texto padrão */
-    background-color: var(--background-dark); /* Cor de fundo de segurança */
-    overflow-x: hidden; /* Previne rolagem horizontal na página inteira */
+    font-family: 'Science Gothic', sans-serif;
+    /* Define a fonte padrão para todo o site */
+    color: var(--text-color);
+    /* Define a cor de texto padrão */
+    background-color: var(--background-dark);
+    /* Cor de fundo de segurança */
+    overflow-x: hidden;
+    /* Previne rolagem horizontal na página inteira */
 }
 
 body::before {
@@ -42,7 +46,8 @@ body::before {
 /* Estilos do Logo e Animações */
 .header-logo {
     width: 650px;
-    max-width: 95%; /* Garante responsividade em telas menores */
+    max-width: 95%;
+    /* Garante responsividade em telas menores */
     height: auto;
     margin-top: 10px;
     /* Sombra 3D profunda e animação contínua */
@@ -60,20 +65,35 @@ body::before {
 
 /* Keyframes para animações do Logo */
 @keyframes pulseLogo {
-    0%, 100% { transform: scale(1); filter: drop-shadow(0 15px 15px rgba(0, 0, 0, 0.6)); }
-    50% { transform: scale(1.05); filter: drop-shadow(0 20px 25px rgba(0, 0, 0, 0.5)); }
+
+    0%,
+    100% {
+        transform: scale(1);
+        filter: drop-shadow(0 15px 15px rgba(0, 0, 0, 0.6));
+    }
+
+    50% {
+        transform: scale(1.05);
+        filter: drop-shadow(0 20px 25px rgba(0, 0, 0, 0.5));
+    }
 }
 
 @keyframes rotateLogo {
-    0% { transform: perspective(1000px) rotateY(0deg) scale(1); }
-    100% { transform: perspective(1000px) rotateY(360deg) scale(1); }
+    0% {
+        transform: perspective(1000px) rotateY(0deg) scale(1);
+    }
+
+    100% {
+        transform: perspective(1000px) rotateY(360deg) scale(1);
+    }
 }
 
 .header-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap; /* Permite quebrar linha em celular */
+    flex-wrap: wrap;
+    /* Permite quebrar linha em celular */
     gap: 10px;
 
 }
@@ -85,7 +105,9 @@ body::before {
 }
 
 /* Agrupando seletores de títulos para reduzir repetição */
-h1, h2, h3 {
+h1,
+h2,
+h3 {
     color: var(--text-color);
     text-shadow: var(--shadow-strong);
     font-style: oblique;
@@ -93,38 +115,44 @@ h1, h2, h3 {
 
 h1 {
     font-size: 2rem;
-    margin-top: -20px; /* Aproxima o título do logo */
+    margin-top: -20px;
+    /* Aproxima o título do logo */
     text-align: center;
 }
 
-h2, h3 {
+h2,
+h3 {
     font-size: 3rem;
 }
 
 /* Agrupando parágrafos e listas com estilos comuns */
-p, ul {
+p,
+ul {
     font-size: 1.5rem;
     color: var(--text-color);
     text-shadow: var(--shadow-light);
-    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.164), rgba(0, 0, 0, 0.171)); /* Fundo degradê para melhor leitura */
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.164), rgba(0, 0, 0, 0.171));
+    /* Fundo degradê para melhor leitura */
     padding: 10px;
 }
 
 ul {
-    list-style-type: none; /* Remove os marcadores (bolinhas) da lista */
+    list-style-type: none;
+    /* Remove os marcadores (bolinhas) da lista */
 }
 
-   /* Container para alinhar os cards superiores lado a lado */
-   .cards-container {
-       display: flex;
-       justify-content: center;
-       flex-wrap: wrap;
-       gap: 50px; /* Mais espaço entre os cards */
-       margin: 40px auto;
-   }
+/* Container para alinhar os cards superiores lado a lado */
+.cards-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 50px;
+    /* Mais espaço entre os cards */
+    margin: 40px auto;
+}
 
-   /* --- Estilos para Seções de Informação (Sobre Mim, Serviços) --- */
-   .info-section {
+/* --- Estilos para Seções de Informação (Sobre Mim, Serviços) --- */
+.info-section {
     display: flex;
     align-items: center;
     gap: 30px;
@@ -132,106 +160,127 @@ ul {
     background-color: var(--background-dark-transparent);
     padding: 20px;
     border-radius: 8px;
-    backdrop-filter: blur(0.3rem); /* Desfoque aumentado levemente */
-   }
+    backdrop-filter: blur(0.3rem);
+    /* Desfoque aumentado levemente */
+}
 
-   /* Inverte a ordem para a segunda seção (imagem à direita) */
-   .info-section.reverse {
+/* Inverte a ordem para a segunda seção (imagem à direita) */
+.info-section.reverse {
     flex-direction: row-reverse;
-   }
+}
 
-   .info-image {
-    flex: 1; /* Ocupa uma parte do espaço */
+.info-image {
+    flex: 1;
+    /* Ocupa uma parte do espaço */
     max-width: 300px;
-   }
+}
 
-   .info-image img {
+.info-image img {
     width: 100%;
     border-radius: 8px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Adiciona transição suave */
-    height: auto; /* Garante proporção correta */
-   }
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* Adiciona transição suave */
+    height: auto;
+    /* Garante proporção correta */
+}
 
-   /* Efeito de hover moderno para as imagens */
-   .info-image img:hover {
-    transform: scale(1.03); /* Aumenta levemente a imagem */
+/* Efeito de hover moderno para as imagens */
+.info-image img:hover {
+    transform: scale(1.03);
+    /* Aumenta levemente a imagem */
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
-   }
+}
 
-   .info-text {
-    flex: 2; /* Ocupa duas partes do espaço, dando mais ênfase ao texto */
+.info-text {
+    flex: 2;
+    /* Ocupa duas partes do espaço, dando mais ênfase ao texto */
     text-align: left;
-   }
+}
 
-   .info-text p, .info-text ul {
+.info-text p,
+.info-text ul {
     text-align: left;
-    background-image: none; /* Remove o fundo gradiente para um visual mais limpo na seção */
-   }
+    background-image: none;
+    /* Remove o fundo gradiente para um visual mais limpo na seção */
+}
 
-   /* --- Estilos Específicos para Sobre Mim (Overlay com Desfoque) --- */
-   #sobre-mim,
-   #servicos,
-   #mfit {
+/* --- Estilos Específicos para Sobre Mim (Overlay com Desfoque) --- */
+#sobre-mim,
+#servicos,
+#mfit {
     position: relative;
     overflow: hidden;
     text-align: center;
-    max-width: 350px; /* Card mais largo */
-    margin: 0; /* Margem removida para o flexbox controlar o espaçamento */
-    padding: 0; /* Remover padding para a foto ocupar tudo */
-    display: flex; /* Flex para centralizar verticalmente */
+    max-width: 350px;
+    /* Card mais largo */
+    margin: 0;
+    /* Margem removida para o flexbox controlar o espaçamento */
+    padding: 0;
+    /* Remover padding para a foto ocupar tudo */
+    display: flex;
+    /* Flex para centralizar verticalmente */
     flex-direction: column;
     justify-content: center;
     border-radius: 15px;
-    height: 400px; /* Altura fixa para desktop */
-    width: 85%; /* Garante largura uniforme */
+    height: 400px;
+    /* Altura fixa para desktop */
+    width: 85%;
+    /* Garante largura uniforme */
 
     /* Estado inicial para animação de scroll */
     opacity: 0.9;
     transform: scale(0.95);
-    transition: opacity 1.5s ease-out, transform 1.5s ease-out, box-shadow 1.5s ease; /* Velocidade aumentada (tempo reduzido) */
-   }
+    transition: opacity 1.5s ease-out, transform 1.5s ease-out, box-shadow 1.5s ease;
+    /* Velocidade aumentada (tempo reduzido) */
+}
 
-   #sobre-mim.in-view,
-   #servicos.in-view,
-   #mfit.in-view {
+#sobre-mim.in-view,
+#servicos.in-view,
+#mfit.in-view {
     opacity: 1;
-    transform: scale(1.02); /* Levemente maior para destaque */
+    transform: scale(1.02);
+    /* Levemente maior para destaque */
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
-   }
+}
 
-   #sobre-mim:hover,
-   #servicos:hover,
-   #mfit:hover {
-    transform: scale(1.05); /* Movimento no container todo */
+#sobre-mim:hover,
+#servicos:hover,
+#mfit:hover {
+    transform: scale(1.05);
+    /* Movimento no container todo */
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
-   }
+}
 
-   #sobre-mim .info-image,
-   #servicos .info-image,
-   #mfit .info-image {
-    position: absolute; /* Imagem como fundo */
+#sobre-mim .info-image,
+#servicos .info-image,
+#mfit .info-image {
+    position: absolute;
+    /* Imagem como fundo */
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     z-index: 0;
-   }
+}
 
-   #sobre-mim .info-image img,
-   #servicos .info-image img {
+#sobre-mim .info-image img,
+#servicos .info-image img {
     width: 135%;
-    height: 100%; /* Preenche toda a altura do card */
+    height: 100%;
+    /* Preenche toda a altura do card */
     object-fit: cover;
-    object-position: center top; /* Prioriza o topo da foto (rosto) */
+    object-position: center top;
+    /* Prioriza o topo da foto (rosto) */
     filter: brightness(0.5);
     transform: scale(1.1);
     border-radius: 0;
     box-shadow: none;
-    display: block; /* Remove espaço extra embaixo da imagem */
-   }
+    display: block;
+    /* Remove espaço extra embaixo da imagem */
+}
 
-   #mfit .info-image img {
+#mfit .info-image img {
     width: 200%;
     height: 120%;
     object-fit: cover;
@@ -241,31 +290,34 @@ ul {
     border-radius: 0;
     box-shadow: none;
     display: block;
-   }
+}
 
-   #mfit {
+#mfit {
     /* Propriedades agora herdadas do grupo principal para padronização */
-   }
+}
 
-   #mfit .cta-button.transparent {
+#mfit .cta-button.transparent {
     border-color: #00008B;
-    margin-top: 10px; /* Botão mais perto do texto */
-   }
-   #mfit .cta-button.transparent:hover {
-    background-color: #00008B;
-   }
+    margin-top: 10px;
+    /* Botão mais perto do texto */
+}
 
-   #sobre-mim .info-image img:hover,
-   #servicos .info-image img:hover,
-   #mfit .info-image img:hover {
+#mfit .cta-button.transparent:hover {
+    background-color: #00008B;
+}
+
+#sobre-mim .info-image img:hover,
+#servicos .info-image img:hover,
+#mfit .info-image img:hover {
     transform: none;
     box-shadow: none;
-   }
+}
 
-   #sobre-mim .info-text,
-   #servicos .info-text,
-   #mfit .info-text {
-    position: relative; /* Texto relativo para ocupar espaço */
+#sobre-mim .info-text,
+#servicos .info-text,
+#mfit .info-text {
+    position: relative;
+    /* Texto relativo para ocupar espaço */
     width: 100%;
     height: auto;
     display: flex;
@@ -274,73 +326,93 @@ ul {
     align-items: center;
     z-index: 1;
     padding: 20px;
-    box-sizing: border-box; /* Garante que o padding não afete a largura total */
-    padding: 0 60px; /* Mais padding lateral para empilhar o texto no centro */
-   }
+    box-sizing: border-box;
+    /* Garante que o padding não afete a largura total */
+    padding: 0 60px;
+    /* Mais padding lateral para empilhar o texto no centro */
+}
 
-   #sobre-mim .info-text h2,
-   #servicos .info-text h3,
-   #mfit .info-text h3 {
-    font-size: 1.8rem; /* Tamanho corrigido para aparecer bem */
+#sobre-mim .info-text h2,
+#servicos .info-text h3,
+#mfit .info-text h3 {
+    font-size: 1.8rem;
+    /* Tamanho corrigido para aparecer bem */
     margin-bottom: 10px;
-    margin-top: 40px; /* Empurra o título mais para baixo */
+    margin-top: 40px;
+    /* Empurra o título mais para baixo */
     text-align: center;
-   }
+}
 
-   /* Texto menor para Sobre Mim */
-   #sobre-mim .info-text p {
-    font-size: 0.9rem; /* Texto menor */
+/* Texto menor para Sobre Mim */
+#sobre-mim .info-text p {
+    font-size: 0.9rem;
+    /* Texto menor */
     line-height: 1.4;
     text-align: center;
     padding: 0;
-   }
+}
 
-   /* Texto ajustado para Mfit */
-   #mfit .info-text p {
-    font-size: 1.0rem; /* Maior */
-    line-height: 1.1; /* Mais perto */
+/* Texto ajustado para Mfit */
+#mfit .info-text p {
+    font-size: 1.0rem;
+    /* Maior */
+    line-height: 1.1;
+    /* Mais perto */
     letter-spacing: -0.5px;
     text-align: center;
     padding: 0;
-   }
+}
 
-   /* Texto maior para o card do meio (Serviços) */
-   #servicos .info-text ul {
-    font-size: 1.0rem; /* Ajustado para a nova altura do card */
+/* Texto maior para o card do meio (Serviços) */
+#servicos .info-text ul {
+    font-size: 1.0rem;
+    /* Ajustado para a nova altura do card */
     line-height: 1.2;
     text-align: center;
     padding: 0;
-   }
+}
 
-   #sobre-mim .info-text h2,
-   #sobre-mim .info-text p,
-   #servicos .info-text h3,
-   #servicos .info-text ul,
-   #mfit .info-text h3,
-   #mfit .info-text p {
+#sobre-mim .info-text h2,
+#sobre-mim .info-text p,
+#servicos .info-text h3,
+#servicos .info-text ul,
+#mfit .info-text h3,
+#mfit .info-text p {
     text-align: center;
-    color: rgb(255, 255, 255); /* Texto levemente transparente */
+    color: rgb(255, 255, 255);
+    /* Texto levemente transparente */
     font-weight: bold;
     text-shadow: 0 2px 8px rgba(0, 0, 0, 1);
-    transition: all 1.5s ease; /* Velocidade aumentada */
-   }
+    transition: all 1.5s ease;
+    /* Velocidade aumentada */
+}
 
-   #sobre-mim:hover .info-text h2, #sobre-mim:hover .info-text p,
-   #sobre-mim.in-view .info-text h2, #sobre-mim.in-view .info-text p,
-   #servicos:hover .info-text h3, #servicos:hover .info-text ul,
-   #servicos.in-view .info-text h3, #servicos.in-view .info-text ul,
-   #mfit:hover .info-text h3, #mfit:hover .info-text p,
-   #mfit.in-view .info-text h3, #mfit.in-view .info-text p {
-    color: #f0f0f0; /* Branco levemente mais suave */
-    text-shadow: 0 0 3px rgba(255, 255, 255, 0.5), 0 0 6px rgba(255, 255, 255, 0.3); /* Brilho reduzido */
-   }
+#sobre-mim:hover .info-text h2,
+#sobre-mim:hover .info-text p,
+#sobre-mim.in-view .info-text h2,
+#sobre-mim.in-view .info-text p,
+#servicos:hover .info-text h3,
+#servicos:hover .info-text ul,
+#servicos.in-view .info-text h3,
+#servicos.in-view .info-text ul,
+#mfit:hover .info-text h3,
+#mfit:hover .info-text p,
+#mfit.in-view .info-text h3,
+#mfit.in-view .info-text p {
+    color: #f0f0f0;
+    /* Branco levemente mais suave */
+    text-shadow: 0 0 3px rgba(255, 255, 255, 0.5), 0 0 6px rgba(255, 255, 255, 0.3);
+    /* Brilho reduzido */
+}
 
 /* --- Media Query para Responsividade --- */
 @media (max-width: 768px) {
+
     /* Ajuste de texto dos cards no celular */
     #sobre-mim .info-text p,
     #mfit .info-text p {
-        font-size: 0.7rem; /* Texto menor para caber tudo e mostrar o botão */
+        font-size: 0.7rem;
+        /* Texto menor para caber tudo e mostrar o botão */
         line-height: 1.2;
     }
 
@@ -354,7 +426,8 @@ ul {
     /* Ajusta posição dos títulos para não cortar */
     #sobre-mim .info-text h2,
     #mfit .info-text h3 {
-        margin-top: 15px; /* Mais para cima */
+        margin-top: 15px;
+        /* Mais para cima */
         font-size: 1.4rem;
         margin-bottom: 5px;
     }
@@ -367,7 +440,8 @@ ul {
     }
 
     #servicos .info-text ul {
-        font-size: 1.2rem; /* Mantém destaque no celular */
+        font-size: 1.2rem;
+        /* Mantém destaque no celular */
     }
 
     /* Container dos cards com rolagem horizontal no celular */
@@ -381,20 +455,29 @@ ul {
     }
 
     .info-section {
-        flex-direction: column; /* Empilha imagem e texto em telas pequenas */
+        flex-direction: column;
+        /* Empilha imagem e texto em telas pequenas */
         text-align: center;
     }
 
     .info-section.reverse {
-        flex-direction: column-reverse; /* Garante que a imagem fique no topo na seção de serviços */
+        flex-direction: column-reverse;
+        /* Garante que a imagem fique no topo na seção de serviços */
     }
 
-    .info-text { text-align: center; }
-    .info-text p, .info-text ul { text-align: center; }
-    
+    .info-text {
+        text-align: center;
+    }
+
+    .info-text p,
+    .info-text ul {
+        text-align: center;
+    }
+
     /* Aumenta o tamanho das imagens das seções (Sobre Mim, Serviços) no celular */
     .info-image {
-        max-width: 100%; /* Remove o limite de 300px para ocupar a largura da tela */
+        max-width: 100%;
+        /* Remove o limite de 300px para ocupar a largura da tela */
     }
 
     /* Ajuste do card Sobre Mim para mobile */
@@ -403,11 +486,13 @@ ul {
     #mfit {
         height: auto;
         min-height: 250px;
-        min-width: 300px; /* Largura fixa para rolagem lateral */
+        min-width: 300px;
+        /* Largura fixa para rolagem lateral */
         max-width: 300px;
         flex: 0 0 auto;
         scroll-snap-align: center;
     }
+
     #sobre-mim .info-text p,
     #servicos .info-text ul,
     #mfit .info-text p {
@@ -448,17 +533,22 @@ ul {
 
 .gallery-viewport {
     width: 100%;
-    overflow-x: auto; /* Permite rolagem horizontal */
-    -webkit-overflow-scrolling: touch; /* Melhora a rolagem em dispositivos móveis */
-    scrollbar-width: none; /* Esconde a barra de rolagem no Firefox */
-    scroll-behavior: auto; /* Garante que o reset do loop seja instantâneo */
+    overflow-x: auto;
+    /* Permite rolagem horizontal */
+    -webkit-overflow-scrolling: touch;
+    /* Melhora a rolagem em dispositivos móveis */
+    scrollbar-width: none;
+    /* Esconde a barra de rolagem no Firefox */
+    scroll-behavior: auto;
+    /* Garante que o reset do loop seja instantâneo */
     cursor: grab;
     mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
     -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
 }
 
 .gallery-viewport::-webkit-scrollbar {
-    display: none; /* Esconde a barra de rolagem no Chrome/Safari */
+    display: none;
+    /* Esconde a barra de rolagem no Chrome/Safari */
 }
 
 .gallery-viewport.grabbing {
@@ -471,13 +561,17 @@ ul {
 }
 
 .result-card {
-    width: 300px; /* Aumentado para ficar mais largo */
-    position: relative; /* Adicionado para conter o .result-info */
-    height: 300px; /* Menor comprimento (altura) */
+    width: 300px;
+    /* Aumentado para ficar mais largo */
+    position: relative;
+    /* Adicionado para conter o .result-info */
+    height: 300px;
+    /* Menor comprimento (altura) */
     transition: transform 0.3s;
     transition: transform 0.3s, box-shadow 0.3s;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-    flex: 0 0 auto; /* Garante que o card NÃO encolha e respeite a largura */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    flex: 0 0 auto;
+    /* Garante que o card NÃO encolha e respeite a largura */
 }
 
 .result-card:hover {
@@ -495,7 +589,8 @@ ul {
 .result-card img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Garante que a imagem cubra o card sem distorcer */
+    object-fit: cover;
+    /* Garante que a imagem cubra o card sem distorcer */
     display: block;
 }
 
@@ -563,7 +658,7 @@ ul {
 }
 
 .card-actions button {
-    background-color: rgba(0,0,0,0.7);
+    background-color: rgba(0, 0, 0, 0.7);
     color: white;
     border: none;
     border-radius: 50%;
@@ -575,6 +670,7 @@ ul {
     cursor: pointer;
     transition: background-color 0.3s;
 }
+
 .card-actions button:hover {
     background-color: var(--primary-color);
 }
@@ -676,8 +772,9 @@ ul {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.8);
-    display: none; /* Oculto por padrão para evitar tela preta ao carregar */
+    background-color: rgba(0, 0, 0, 0.8);
+    display: none;
+    /* Oculto por padrão para evitar tela preta ao carregar */
     align-items: center;
     justify-content: center;
     z-index: 2000;
@@ -715,7 +812,7 @@ ul {
 
 /* --- Estilos para o Modal de Imagem --- */
 .modal-overlay#image-modal {
-    background-color: rgba(0,0,0,0.9);
+    background-color: rgba(0, 0, 0, 0.9);
 }
 
 .close-modal-btn {
@@ -746,6 +843,7 @@ ul {
         transform: scale(0.8);
         opacity: 0;
     }
+
     to {
         transform: scale(1);
         opacity: 1;
@@ -779,28 +877,34 @@ ul {
 footer {
     margin-top: 70px;
     padding: 50px 20px 10px;
-    text-align: center; /* Centraliza o conteúdo do rodapé */
+    text-align: center;
+    /* Centraliza o conteúdo do rodapé */
     background-color: rgba(0, 0, 0, 0);
-   
+
 }
 
 /* Container para os ícones de redes sociais no rodapé */
 .footer-social-media {
-    margin-bottom: 20px; /* Espaço entre os ícones e o texto de copyright */
+    margin-bottom: 20px;
+    /* Espaço entre os ícones e o texto de copyright */
 }
 
 .footer-social-media a {
     color: rgb(253, 253, 253);
     text-decoration: none;
-    font-size: 1rem; /* Tamanho um pouco menor para o rodapé */
+    font-size: 1rem;
+    /* Tamanho um pouco menor para o rodapé */
     margin: 0 10px;
     transition: color 0.3s ease, transform 0.3s ease;
-    display: inline-block; /* Necessário para a transformação */
+    display: inline-block;
+    /* Necessário para a transformação */
 }
 
 .footer-social-media a:hover {
-    color: var(--primary-color); /* Usa a cor primária no hover */
-    transform: translateY(-3px); /* Efeito de levantar o ícone */
+    color: var(--primary-color);
+    /* Usa a cor primária no hover */
+    transform: translateY(-3px);
+    /* Efeito de levantar o ícone */
 }
 
 
@@ -808,24 +912,33 @@ footer p {
     margin: 0;
     font-size: 0.5rem;
     color: #525151;
-    background-image: none; /* Garante que não herde o gradiente de p */
+    background-image: none;
+    /* Garante que não herde o gradiente de p */
     padding: 0;
 }
 
 @media (max-width: 480px) {
+
     /* Ajustes finos para celulares */
-    h1 { font-size: 1.5rem; }
-    h2, h3 { font-size: 1.2rem; }
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    h2,
+    h3 {
+        font-size: 1.2rem;
+    }
 
     /* Reduz o tamanho do texto e centraliza para melhor leitura no celular */
-    p, ul {
+    p,
+    ul {
         font-size: 1rem;
         text-align: center;
     }
-    
+
     /* Reduz padding para ganhar espaço */
-    .weekly-plan-generator, 
-    .results-section, 
+    .weekly-plan-generator,
+    .results-section,
     .submission-area {
         padding: 15px;
         margin-top: 30px;
@@ -838,11 +951,15 @@ footer p {
         width: 100%;
         margin-bottom: 8px;
     }
-    .action-buttons-container { flex-direction: column; }
+
+    .action-buttons-container {
+        flex-direction: column;
+    }
 
     /* Cards da galeria responsivos */
     .result-card {
-        width: 340px; /* Mais largo no celular */
+        width: 340px;
+        /* Mais largo no celular */
         height: 250px;
     }
 
@@ -868,7 +985,7 @@ footer p {
         max-height: 90vh;
         overflow-y: auto;
     }
-    
+
     /* Melhor performance de scroll em mobile */
     body {
         background-attachment: fixed;
@@ -879,10 +996,22 @@ footer p {
 
 /* --- Botões Flutuantes (WhatsApp e Instagram) --- */
 @keyframes pulse-whatsapp {
-    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
-    70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(37, 211, 102, 0); }
-    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+    }
+
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 10px rgba(37, 211, 102, 0);
+    }
+
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+    }
 }
+
 .whatsapp-button-injected {
     position: fixed;
     bottom: 20px;
@@ -900,22 +1029,37 @@ footer p {
     transition: background-color 0.3s ease, transform 0.3s ease;
     border: none;
     cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     animation: pulse-whatsapp 2s infinite;
 }
+
 .whatsapp-button-injected:hover {
     background-color: #128C7E;
     transform: scale(1.1);
     animation: none;
 }
+
 .whatsapp-button-injected .fa-whatsapp {
     font-size: 28px;
 }
+
 @keyframes pulse-instagram {
-    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(225, 48, 108, 0.7); }
-    70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(225, 48, 108, 0); }
-    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(225, 48, 108, 0); }
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(225, 48, 108, 0.7);
+    }
+
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 10px rgba(225, 48, 108, 0);
+    }
+
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(225, 48, 108, 0);
+    }
 }
+
 .instagram-button-injected {
     position: fixed;
     bottom: 20px;
@@ -927,20 +1071,22 @@ footer p {
     width: 50px;
     height: 50px;
     background-color: #E1306C;
-    color: white; 
+    color: white;
     text-decoration: none;
     border-radius: 50%;
     transition: background-color 0.3s ease, transform 0.3s ease;
     border: none;
     cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     animation: pulse-instagram 2s infinite;
 }
+
 .instagram-button-injected:hover {
-    background-color: #C135A1; 
+    background-color: #C135A1;
     transform: scale(1.1);
     animation: none;
 }
+
 .instagram-button-injected .fa-instagram {
     font-size: 24px;
 }
@@ -948,11 +1094,13 @@ footer p {
 /* --- Botão Voltar ao Topo --- */
 #back-to-top {
     position: fixed;
-    bottom: 90px; /* Acima do botão do WhatsApp */
+    bottom: 90px;
+    /* Acima do botão do WhatsApp */
     right: 20px;
     width: 45px;
     height: 45px;
-    background-image: url('z-img/pitbull.png'); /* Foto do Pitbull */
+    background-image: url('z-img/pitbull.png');
+    /* Foto do Pitbull */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -961,10 +1109,18 @@ footer p {
     border-radius: 50%;
     cursor: pointer;
     z-index: 999;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     transition: opacity 0.3s, transform 0.3s, box-shadow 0.3s;
     opacity: 0;
     pointer-events: none;
 }
-#back-to-top.show { opacity: 1; pointer-events: auto; }
-#back-to-top:hover { transform: translateY(-5px) scale(1.1); box-shadow: 0 0 15px var(--primary-color); }
+
+#back-to-top.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#back-to-top:hover {
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 0 15px var(--primary-color);
+}
