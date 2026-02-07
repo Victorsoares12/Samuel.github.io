@@ -76,6 +76,7 @@ document.addEventListener('DOMContentLoaded', function () {
             `;
 
             galleryTrack.appendChild(card);
+            card.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
             // Removido a duplicação no upload manual para não ficar repetido
 
             submissionModal.style.display = 'none';
@@ -116,11 +117,12 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    
     // --- Botão Voltar ao Topo ---
     const backToTopBtn = document.getElementById('back-to-top');
     if (backToTopBtn) {
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
+            if (window.scrollY > 300) {
                 backToTopBtn.classList.add('show');
             } else {
                 backToTopBtn.classList.remove('show');
@@ -132,6 +134,9 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
     // --- Navegação Ativa (Highlight no Scroll) ---
+});
+
+// --- Navegação Ativa (Highlight no Scroll) ---
     const navLinks = document.querySelectorAll('.main-nav a');
     const sections = document.querySelectorAll('section');
 
@@ -156,133 +161,4 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('scroll', highlightNav);
     highlightNav(); // Executa ao carregar para marcar a seção inicial
 
-    // --- Carrossel de Motivação Automático ---
-    const motivationSlides = document.querySelectorAll('.motivation-slide');
-    let currentMotivationSlide = 0;
-
-    if (motivationSlides.length > 0) {
-        setInterval(() => {
-            motivationSlides[currentMotivationSlide].classList.remove('active');
-            currentMotivationSlide = (currentMotivationSlide + 1) % motivationSlides.length;
-            motivationSlides[currentMotivationSlide].classList.add('active');
-        }, 5000); // Troca a cada 5 segundos
-    }
-});
---- c: \Portifolio Site\Samuel.github.io\script.js
-+++ c: \Portifolio Site\Samuel.github.io\script.js
-@@ -163, 4 + 163, 25 @@
-             }, 60000);
-         }, { passive: true });
-     }
-
-// --- Navegação Ativa (Highlight no Scroll) ---
-const navLinks = document.querySelectorAll('.main-nav a');
-const sections = document.querySelectorAll('section');
-
-function highlightNav() {
-    let current = '';
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        // Ajuste de 150px para compensar a altura da barra fixa
-        if (window.scrollY >= (sectionTop - 150)) {
-            current = section.getAttribute('id');
-        }
-    });
-
-    navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (current && link.getAttribute('href').includes(current)) {
-            link.classList.add('active');
-        }
-    });
-}
-
-window.addEventListener('scroll', highlightNav);
-highlightNav(); // Executa ao carregar para marcar a seção inicial
- });
-
-// --- Navegação Ativa (Highlight no Scroll) ---
-const navLinks = document.querySelectorAll('.main-nav a');
-const sections = document.querySelectorAll('section');
-
-function highlightNav() {
-    let current = '';
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        // Ajuste de 150px para compensar a altura da barra fixa
-        if (window.scrollY >= (sectionTop - 150)) {
-            current = section.getAttribute('id');
-        }
-    });
-
-    navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (current && link.getAttribute('href').includes(current)) {
-            link.classList.add('active');
-        }
-    });
-}
-
-window.addEventListener('scroll', highlightNav);
-highlightNav(); // Executa ao carregar para marcar a seção inicial
-  });
-      }
-
-// --- Navegação Ativa (Highlight no Scroll) ---
-const navLinks = document.querySelectorAll('.main-nav a');
-const sections = document.querySelectorAll('section');
-
-function highlightNav() {
-    let current = '';
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        // Ajuste de 150px para compensar a altura da barra fixa
-        if (window.scrollY >= (sectionTop - 150)) {
-            current = section.getAttribute('id');
-        }
-    });
-
-    navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (current && link.getAttribute('href').includes(current)) {
-            link.classList.add('active');
-        }
-    });
-}
-
-window.addEventListener('scroll', highlightNav);
-highlightNav(); // Executa ao carregar para marcar a seção inicial
-  });
-
---- c: \Portifolio Site\Samuel.github.io\script.js
-+++ c: \Portifolio Site\Samuel.github.io\script.js
-@@ -163, 4 + 163, 25 @@
-             }, 60000);
-         }, { passive: true });
-     }
-
-// --- Navegação Ativa (Highlight no Scroll) ---
-const navLinks = document.querySelectorAll('.main-nav a');
-const sections = document.querySelectorAll('section');
-
-function highlightNav() {
-    let current = '';
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        // Ajuste de 150px para compensar a altura da barra fixa
-        if (window.scrollY >= (sectionTop - 150)) {
-            current = section.getAttribute('id');
-        }
-    });
-
-    navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (current && link.getAttribute('href').includes(current)) {
-            link.classList.add('active');
-        }
-    });
-}
-
-window.addEventListener('scroll', highlightNav);
-highlightNav(); // Executa ao carregar para marcar a seção inicial
-});
+    

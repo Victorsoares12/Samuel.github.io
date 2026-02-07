@@ -493,6 +493,12 @@ ul {
         scroll-snap-align: center;
     }
 
+    .uniform-card {
+        width: 200px;
+        height: 250px;
+        scroll-snap-align: center;
+    }
+
     #sobre-mim .info-text p,
     #servicos .info-text ul,
     #mfit .info-text p {
@@ -576,7 +582,7 @@ ul {
 
 .result-card:hover {
     transform: scale(1.05);
-    box-shadow: 0 0 20px var(--primary-color);
+    box-shadow: 0 0 20px #00008B;
     z-index: 10;
 }
 
@@ -647,10 +653,10 @@ ul {
     top: 10px;
     right: 10px;
     display: flex;
-    position: absolute;
     gap: 5px;
     opacity: 0;
     transition: opacity 0.3s;
+    z-index: 100;
 }
 
 .result-card:hover .card-actions {
@@ -662,8 +668,8 @@ ul {
     color: white;
     border: none;
     border-radius: 50%;
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -713,8 +719,8 @@ ul {
 }
 
 .upload-box:hover {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 15px var(--primary-color);
+    border-color: #00008B;
+    box-shadow: 0 0 15px #00008B;
 }
 
 .upload-placeholders .upload-box:first-child {
@@ -764,6 +770,81 @@ ul {
     background-color: transparent;
     padding: 5px;
     border-radius: 5px;
+}
+
+/* --- Estilos para Seção de Uniformes --- */
+.uniform-card {
+    width: 550px;
+    height: auto;
+    padding-bottom: 20px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    animation: floatCard 4s ease-in-out infinite;
+}
+
+.uniform-card:hover {
+    box-shadow: 0 0 10px #00008B;
+}
+
+.uniform-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.uniform-row {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.uniform-card .uniform-row img {
+    width: 50%;
+    transition: transform 0.4s ease, filter 0.4s ease;
+    cursor: pointer;
+}
+
+.uniform-card .uniform-row img:hover {
+    transform: scale(1.03);
+    filter: brightness(1.1);
+    z-index: 2;
+    position: relative;
+}
+
+.uniform-caption {
+    font-size: 1.2rem;
+    color: #fff;
+    text-align: center;
+    padding: 10px 15px;
+    margin: 0;
+    font-weight: 800;
+    font-style: italic;
+    background: none;
+    text-shadow: 
+        1px 1px 0 #00008B,
+        2px 2px 0 #00008B,
+        3px 3px 0 #00008B,
+        4px 4px 5px rgba(0, 0, 0, 0.8);
+    letter-spacing: 1px;
+}
+
+@keyframes floatCard {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
 }
 
 .modal-overlay {
@@ -991,6 +1072,16 @@ footer p {
         background-attachment: fixed;
         background-size: cover;
         background-repeat: no-repeat;
+    }
+
+    .result-card .card-actions {
+        opacity: 1;
+    }
+}
+
+@media (max-width: 1024px) {
+    .result-card .card-actions {
+        opacity: 1;
     }
 }
 
